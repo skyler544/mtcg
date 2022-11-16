@@ -1,0 +1,33 @@
+@startuml
+
+class User {
+        - String password
+        - String username
+        - ArrayList<Card> stack
+
+        + void manageCards()
+}
+
+User .. Card
+
+abstract class Card {
+        - int damage
+
+        + int getDamage()
+}
+
+class MonsterCard {}
+class SpellCard {}
+
+Card <|- MonsterCard
+Card <|- SpellCard
+
+MonsterCard <|- MonsterType
+MonsterCard <|- Element
+
+SpellCard <|- Element
+
+interface MonsterType {}
+interface Element {}
+
+@enduml

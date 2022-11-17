@@ -1,0 +1,6 @@
+---
+Language: Java
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 85
+AllowShortFunctionsOnASingleLine: Empty

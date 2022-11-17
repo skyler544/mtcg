@@ -36,4 +36,6 @@ public class User {
         this.username = username;
     }
 
+    public void consultLoreMaster(Card card) {}
+
 }

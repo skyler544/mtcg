@@ -6,6 +6,7 @@ class User {
         - ArrayList<Card> stack
 
         + void manageCards()
+        + void tradeCards()
 }
 
 User .. Card

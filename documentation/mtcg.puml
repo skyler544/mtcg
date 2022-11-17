@@ -8,27 +8,45 @@ class User {
         + void manageCards()
         + void tradeCards()
 }
-
-User .. Card
-
 abstract class Card {
         - int damage
 
         + int getDamage()
 }
 
-class MonsterCard {}
-class SpellCard {}
+User .. Card
+
+enum MonsterType {
+        DRAGON
+        GOBLIN
+        KNIGHT
+        ELF
+}
+enum Element {
+        WATER
+        EARTH
+        FIRE
+}
+
+class MonsterCard {
+        - Element element
+        - MonsterType type
+
+        + Element getElement()
+        + MonsterType getType()
+}
+class SpellCard {
+        - Element element
+
+        + Element getElement()
+}
 
 Card <|- MonsterCard
 Card <|- SpellCard
 
-MonsterCard <|- MonsterType
-MonsterCard <|- Element
+MonsterCard .. MonsterType
+MonsterCard .. Element
 
-SpellCard <|- Element
-
-interface MonsterType {}
-interface Element {}
+SpellCard .. Element
 
 @enduml

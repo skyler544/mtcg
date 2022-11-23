@@ -2,8 +2,12 @@
 
 
 ## Build
-`$ mvn package`
+`$ make`
 
 
 ## run
-`$ java -jar target/*.jar`
+`$ make run`
+
+
+## View UML
+`$ make view-uml`

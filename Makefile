@@ -9,5 +9,8 @@ uml:
 view-uml:
 	xdg-open target/uml/*.png
 
+run:
+	java -jar target/*.jar
+
 clean:
 	mvn clean

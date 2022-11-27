@@ -12,5 +12,8 @@ view-uml:
 run:
 	java -jar target/*.jar
 
+help:
+	echo "Call make with one of the following targets:\n" && cat Makefile
+
 clean:
 	mvn clean

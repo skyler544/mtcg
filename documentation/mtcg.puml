@@ -1,9 +1,13 @@
 @startuml
 
+class Server {
+       - ArrayList<User> activeUsers
+}
+
 class User {
-        - String password
-        - String username
         - ArrayList<Card> stack
+        - Credentials credentials
+        - int coins
 
         + void manageCards()
         + void tradeCards()
@@ -12,13 +16,24 @@ class User {
 
         - void updateStack(ArrayList<Card> pack)
 }
+
 abstract class Card {
-        - int damage
+        - final int damage
 
         + int getDamage()
 }
 
+class Credentials {
+        - String username
+        - String password
+
+        + String getUsername()
+        + String getPassword()
+}
+
 User .. Card
+User .. Credentials
+User .. Server
 
 enum MonsterType {
         DRAGON

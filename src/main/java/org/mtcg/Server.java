@@ -35,7 +35,7 @@ public class Server implements Runnable {
                 String message;
                 do {
                     message = reader.readLine();
-                    System.out.println("srv: received: " + message);
+                    CommandDispatcher.dispatch(message);
                 } while (!"quit".equals(message));
             }
         } catch (Exception e) {

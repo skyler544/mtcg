@@ -31,7 +31,10 @@
     </dependency>
   </dependencies>
 
+  <packaging>jar</packaging>
+
   <build>
+    <finalName>MTCG</finalName>
 
     <plugins>
       <plugin>

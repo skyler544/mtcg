@@ -23,15 +23,42 @@ public class Server implements Runnable {
         try {
             while (true) {
                 Socket s = _listener.accept();
+
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
                 System.out.println("srv: sending welcome message");
-                writer.write("Welcome to myserver!");
-                writer.newLine();
-                writer.write("Please enter your commands...");
+                writer.write("Welcome to MTCG!");
                 writer.newLine();
                 writer.flush();
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                boolean authenticated = false;
+
+                while (!authenticated) {
+                    writer.write("Please authenticate or register: [a/r]");
+                    writer.newLine();
+                    writer.flush();
+
+                    String message = reader.readLine();
+
+                    switch (message) {
+                    case "a":
+                        System.out.println("Authenticated.");
+                        authenticated = true;
+                        break;
+                    case "r":
+                        System.out.println("Registered.");
+                        authenticated = true;
+                        break;
+                    default:
+                        break;
+                    }
+                }
+
+                writer.write("Enter a command: ");
+                writer.newLine();
+                writer.flush();
+
                 String message;
                 do {
                     message = reader.readLine();

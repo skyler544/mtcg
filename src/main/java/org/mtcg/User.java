@@ -41,15 +41,16 @@ public class User {
         this.username = username;
     }
 
-    public void consultLoreMaster(Card card) {}
+    public void consultLoreMaster(Card card) {
+    }
 
     public static void main(String[] args) {
         System.out.println("start client");
 
         try (Socket socket = new Socket("localhost", 10001);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
-             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
 
             System.out.println("cli: " + reader.readLine());
             System.out.println("cli: " + reader.readLine());
@@ -59,7 +60,7 @@ public class User {
                 writer.write(input);
                 writer.newLine();
                 writer.flush();
-                System.out.print("cli: ");
+                System.out.print("cli: " + reader.readLine());
             }
             writer.write("quit");
             writer.newLine();

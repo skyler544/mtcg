@@ -6,6 +6,7 @@ class Server {
 
 class User {
         - ArrayList<Card> stack
+        - ArrayList<Card> deck
         - Credentials credentials
         - int coins
 
@@ -13,7 +14,9 @@ class User {
         + void tradeCards()
         + void buyCardPack()
         + ArrayList<Card> getStack()
+        + ArrayList<Card> getDeck()
 
+        - void addCardToDeck()
         - void updateStack(ArrayList<Card> pack)
 }
 

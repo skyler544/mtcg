@@ -2,16 +2,22 @@
 version: '3.1'
 
 services:
-
-  db:
+  mtcg-db:
     image: postgres:15.1
     restart: always
     environment:
-      POSTGRES_PASSWORD: swen1pw
-
+      POSTGRES_USER: mtcg-user
+      POSTGRES_PASSWORD: mtcg-pass
+      POSTGRES_DB: mtcg-db
+    volumes:
+      - mtcg_db:/var/lib/postgresql/data
   adminer:
     image: adminer:4.8.1
     restart: always
     command: php -S 0.0.0.0:8080 -t /var/www/html
     ports:
       - 8080:8080
+
+volumes:
+  mtcg_db:
+    driver: local

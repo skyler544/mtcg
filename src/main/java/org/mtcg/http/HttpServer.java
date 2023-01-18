@@ -31,7 +31,7 @@ public class HttpServer {
 
                 executorService.submit(() -> {
 
-                    try {
+                    try (socket) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                         final RequestContext requestContext = parseInput(br);
@@ -73,7 +73,6 @@ public class HttpServer {
                         w.newLine();
                         // write body
                         w.flush();
-                        w.close();
                     } catch (IOException e) {
                         System.err.println(e);
                     }

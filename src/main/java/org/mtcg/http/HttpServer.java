@@ -20,7 +20,6 @@ public class HttpServer {
     }
 
     public void start() {
-        System.out.println("Hello from the server");
         try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
             while (true) {
                 try (final Socket socket = serverSocket.accept()) {

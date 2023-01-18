@@ -7,16 +7,13 @@ curl-script:
 	documentation/MTCG-Test.sh
 
 compile:
-	mvn clean compile assembly:single
+	mvn clean package compile assembly:single
 
-uml: uml-directory
-	plantuml -theme carbon-gray target/uml/*.puml
+uml:
+	plantuml -theme carbon-gray target/generated-docs/mtcg.puml
 
 view-uml:
-	xdg-open target/uml/*.png
-
-uml-directory:
-	mkdir target/uml
+	xdg-open target/generated-docs/mtcg.png
 
 clean:
 	mvn clean

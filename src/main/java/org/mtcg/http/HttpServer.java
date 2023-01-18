@@ -41,10 +41,8 @@ public class HttpServer {
                         // route we need to follow the pattern given by the
                         // signature of the method when writing the route
                         // methods.
-                        // response = route.process(requestContext);
+                        response = route.process(requestContext);
                         response = new Response();
-                        response.setBody("Hello there");
-                        response.setHttpStatus(HttpStatus.OK);
                     } catch (BadRequestException badRequestException) {
                         response = new Response();
                         response.setBody(badRequestException.getMessage());

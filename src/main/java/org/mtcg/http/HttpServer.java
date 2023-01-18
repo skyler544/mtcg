@@ -15,19 +15,24 @@ public class HttpServer {
 
     private final Router router;
     private final int SERVER_PORT = 10001;
+    private final int NUMBER_OF_THREADS = 10;
 
     public HttpServer(Router router) {
         this.router = router;
     }
 
     public void start() {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
         try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
+
+            ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
             while (true) {
-                Runnable httpRequest = () -> {
-                    try (final Socket socket = serverSocket.accept()) {
-                        BufferedReader br = new BufferedReader(
-                                new InputStreamReader(socket.getInputStream()));
+                final Socket socket = serverSocket.accept();
+
+                executorService.submit(() -> {
+
+                    try {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                         final RequestContext requestContext = parseInput(br);
                         System.out.println("Thread: " + Thread.currentThread().getName());
@@ -68,17 +73,15 @@ public class HttpServer {
                         w.newLine();
                         // write body
                         w.flush();
+                        w.close();
                     } catch (IOException e) {
                         System.err.println(e);
                     }
-                };
-                executorService.execute(httpRequest);
+                });
             }
         } catch (IOException e) {
             System.err.println(e);
         }
-
-        executorService.shutdown();
     }
 
     public RequestContext parseInput(BufferedReader bufferedReader) throws IOException {

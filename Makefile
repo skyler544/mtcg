@@ -1,25 +1,22 @@
-all: package uml
+all: compile uml
 
-server:
-	java -cp target/MTCG.jar org.mtcg.Server
+run:
+	java -jar target/MTCG.jar
 
-user:
-	java -cp target/MTCG.jar org.mtcg.User
+curl-script:
+	documentation/MTCG-Test.sh
 
-package:
-	mvn package
+compile:
+	mvn clean compile assembly:single
 
-uml:
+uml: uml-directory
 	plantuml -theme carbon-gray target/uml/*.puml
 
 view-uml:
 	xdg-open target/uml/*.png
 
-run:
-	java -jar target/MTCG.jar
-
-help:
-	echo "Call make with one of the following targets:\n" && cat Makefile
+uml-directory:
+	mkdir target/uml
 
 clean:
 	mvn clean

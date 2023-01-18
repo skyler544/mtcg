@@ -27,10 +27,14 @@ public class HttpServer {
             ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
             while (true) {
+                // creating the socket in this way prevents us from using the
+                // single-line try-with-resources block pattern. luckily, there
+                // is a workaround.
                 final Socket socket = serverSocket.accept();
 
                 executorService.submit(() -> {
 
+                    // still using try-with-resources
                     try (socket) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -73,6 +77,7 @@ public class HttpServer {
                         w.newLine();
                         // write body
                         w.flush();
+                        // no need to manually close anything
                     } catch (IOException e) {
                         System.err.println(e);
                     }

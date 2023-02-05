@@ -1,13 +1,13 @@
 all: compile
 
 run:
-	java -jar target/MTCG.jar
+	mvn exec:java
 
 curl-script:
 	documentation/MTCG-Test.sh
 
 compile:
-	mvn clean package compile assembly:single
+	mvn clean compile assembly:single
 
 view-uml: uml
 	xdg-open target/generated-docs/mtcg.png

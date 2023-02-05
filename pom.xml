@@ -76,6 +76,15 @@
       </plugin>
 
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <mainClass>org.mtcg.Main</mainClass>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <artifactId>plantuml-generator-maven-plugin</artifactId>
         <groupId>de.elnarion.maven</groupId>
         <version>1.1.2</version>

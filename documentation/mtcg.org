@@ -1,3 +1,15 @@
+#+TITLE: MTCG
+:FILE-OPTIONS:
+#+STARTUP: fold
+#+OPTIONS: toc:nil
+#+OPTIONS: num:2
+#+OPTIONS: \n:t
+#+LATEX_HEADER: \usepackage{helvet}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+#+LATEX_HEADER: \usepackage{nopageno}
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \usepackage[a4paper, margin=2.5cm]{geometry}
+:END:
 
 * PROJ [[file:~/mega/fh/ws22/swen/mtcg/documentation/mtcg.pdf][Monster Card Game]]
 DEADLINE: <2023-02-26 Sun 23:55>

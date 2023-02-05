@@ -25,7 +25,9 @@ public class DataSource implements DbConnector {
 
     private static DataSource dataSource;
 
-    // Always use a static
+    // Always use a static DataSource; this ensures that we don't end up in some
+    // kind of odd undefined situation where there is more than one active data
+    // source.
     public static DataSource getInstance() {
         if (dataSource == null) {
             dataSource = new DataSource();
@@ -33,6 +35,8 @@ public class DataSource implements DbConnector {
         return dataSource;
     }
 
+    // Note that java.sql.Connection extends AutoCloseable; this should be used
+    // via the try-with-resources pattern.
     public Connection getConnection() {
         try {
             System.out.println("Hello from Hikari");

@@ -19,6 +19,7 @@ Checklist:
 :end:
 ** TODO Database [2/4]
 :LOGBOOK:
+CLOCK: [2023-02-05 Sun 18:14]
 CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 :END:
 + [X] Set up the docker containers
@@ -27,6 +28,8 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 + [X] Find out how to connect to the database in code
 + [ ] Find out how to write prepared statements
   - [ ] Prevent SQL injection
+  - [ ] Take advantage of autocloseable functionality
+    + Always use the try-with-resources pattern, taking advantage of the static HikariDataSource
 + [ ] Create Schema
 ** TODO Endpoints [0/5]
 *** TODO users [0/4]

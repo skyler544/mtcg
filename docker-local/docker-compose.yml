@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: mtcg-user
       POSTGRES_PASSWORD: mtcg-pass
       POSTGRES_DB: mtcg-db
+    ports:
+      - 5432:5432
     volumes:
       - mtcg-db:/var/lib/postgresql/data
   adminer_custom:

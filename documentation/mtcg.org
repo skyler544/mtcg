@@ -1,0 +1,47 @@
+
+* PROJ [[file:~/mega/fh/ws22/swen/mtcg/documentation/mtcg.pdf][Monster Card Game]]
+DEADLINE: <2023-02-26 Sun 23:55>
+:info:
+Checklist:
+(async-shell-command "chromium https://docs.google.com/spreadsheets/d/1QpgEEVFwCxaCE-Q3iN1O-8myCMOjknp8/edit#gid=231551220")
+:end:
+** TODO Database [1/4]
++ [X] Set up the docker containers
+  - [X] postgres
+  - [X] adminer
++ [ ] Find out how to connect to the database in code
++ [ ] Find out how to write prepared statements
+  - [ ] Prevent SQL injection
++ [ ] Create Schema
+** TODO Endpoints [0/5]
+*** TODO users [0/4]
++ [ ] POST /users
++ [ ] GET /users/{username} 
++ [ ] PUT /users/{username} 
++ [ ] POST /sessions 
+*** TODO packages [0/2]
++ [ ] POST /packages
++ [ ] POST /transactions/packages
+*** TODO cards [0/3]
++ [ ] GET /cards
++ [ ] GET /deck
++ [ ] PUT /deck
+*** TODO game [0/3] 
++ [ ] GET /stats
++ [ ] GET /scoreboard
++ [ ] POST /battles
+*** TODO trading [0/4]
++ [ ] GET /tradings
++ [ ] POST /tradings
++ [ ] DELETE /tradings/{tradingdealid}
++ [ ] POST /tradings/{tradingdealid}
+** TODO Controllers [0/5]
++ [ ] UserController
++ [ ] PackagesController
++ [ ] CardsController
++ [ ] GameController
++ [ ] TradingController
+** TODO Synchronization
+:info:
+https://stackoverflow.com/a/2120409
+:end:

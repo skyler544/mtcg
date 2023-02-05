@@ -70,14 +70,15 @@ public class HttpServer {
                                 new OutputStreamWriter(socket.getOutputStream()));
                         // 200 OK
                         w.write("HTTP/1.1 ");
+                        // write headers
                         w.write(response.getHttpStatus().getStatusCode() + " ");
                         w.write(response.getHttpStatus().getStatusMessage());
                         w.newLine();
-                        // write headers
                         w.newLine();
                         // write body
                         w.flush();
-                        // no need to manually close anything
+                        // no need to manually close anything; we're using
+                        // autocloseable
                     } catch (IOException e) {
                         System.err.println(e);
                     }

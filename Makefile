@@ -6,14 +6,17 @@ run:
 curl-script:
 	documentation/MTCG-Test.sh
 
-compile:
-	mvn clean compile assembly:single
+compile: clean package
+	mvn compile assembly:single
+
+package:
+	mvn package
 
 view-uml: uml
 	xdg-open target/generated-docs/mtcg.png
 
 uml:
-	plantuml -theme carbon-gray target/generated-docs/mtcg.puml
+	export PLANTUML_LIMIT_SIZE=8192 && plantuml -theme carbon-gray target/generated-docs/mtcg.puml
 
 clean:
 	mvn clean

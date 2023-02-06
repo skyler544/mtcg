@@ -11,7 +11,7 @@
 #+LATEX_HEADER: \usepackage[a4paper, margin=2.5cm]{geometry}
 :END:
 
-* PROJ [[file:~/mega/fh/ws22/swen/mtcg/documentation/mtcg.pdf][Monster Card Game]]
+* PROJ [[file:./mtcg.pdf][Monster Card Game]]
 DEADLINE: <2023-02-26 Sun 23:55>
 :info:
 Checklist:

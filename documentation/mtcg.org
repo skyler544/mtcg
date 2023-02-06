@@ -44,17 +44,17 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
   - [ ] Unit test
 + [ ] POST /sessions 
   - [ ] Unit test
-*** TODO packages [0/2]
-+ [ ] POST /packages
-  - [ ] Unit test
-+ [ ] POST /transactions/packages
-  - [ ] Unit test
 *** TODO cards [0/3]
 + [ ] GET /cards
   - [ ] Unit test
 + [ ] GET /deck
   - [ ] Unit test
 + [ ] PUT /deck
+  - [ ] Unit test
+*** TODO packages [0/2]
++ [ ] POST /packages
+  - [ ] Unit test
++ [ ] POST /transactions/packages
   - [ ] Unit test
 *** TODO game [0/3] 
 + [ ] GET /stats

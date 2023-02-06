@@ -1,5 +1,6 @@
 package org.mtcg.application.service;
 
+import org.mtcg.application.model.Credentials;
 import org.mtcg.application.model.User;
 import org.mtcg.application.repository.UserRepository;
 
@@ -12,5 +13,9 @@ public class UserService {
 
     public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+    public void save(Credentials credentials) {
+        userRepository.save(credentials);
     }
 }

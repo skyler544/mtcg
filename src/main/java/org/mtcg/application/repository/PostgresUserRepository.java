@@ -1,5 +1,6 @@
 package org.mtcg.application.repository;
 
+import org.mtcg.application.model.Credentials;
 import org.mtcg.application.model.User;
 
 import java.sql.PreparedStatement;
@@ -26,8 +27,17 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
-        // TODO: implement me
+    public void save(Credentials credentials) throws IllegalStateException {
+        final String ADD_USER = """
+                INSERT INTO users (username, password) VALUES (?, ?)
+                    """;
+        try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(ADD_USER)) {
+            ps.setString(1, credentials.getUsername());
+            ps.setString(2, credentials.getPassword());
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to save user.", e);
+        }
     }
 
     @Override

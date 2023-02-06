@@ -17,8 +17,9 @@ DEADLINE: <2023-02-26 Sun 23:55>
 Checklist:
 (async-shell-command "chromium https://docs.google.com/spreadsheets/d/1QpgEEVFwCxaCE-Q3iN1O-8myCMOjknp8/edit#gid=231551220")
 :end:
-** TODO Database [2/4]
+** TODO Database [3/4]
 :LOGBOOK:
+CLOCK: [2023-02-06 Mon 17:13]--[2023-02-06 Mon 18:37] =>  1:24
 CLOCK: [2023-02-05 Sun 18:14]--[2023-02-05 Sun 19:49] =>  1:35
 CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 :END:
@@ -26,8 +27,10 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
   - [X] postgres
   - [X] adminer
 + [X] Find out how to connect to the database in code
-+ [-] Find out how to write prepared statements
-  - [ ] Prevent SQL injection
++ [X] Find out how to write prepared statements
+  - [X] Prevent SQL injection
+    + Using methods such as `setString(foo)` neutralizes the sql injection
+      threat by turning even dangerous input into a simple string
   - [X] Take advantage of autocloseable functionality
     + Always use the try-with-resources pattern, taking advantage of the static HikariDataSource
 + [ ] Create Schema

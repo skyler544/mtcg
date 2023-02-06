@@ -33,33 +33,58 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 + [ ] Create Schema
 ** TODO Endpoints [0/5]
 *** TODO users [0/4]
-+ [-] POST /users
++ [ ] POST /users
+  - [ ] Unit test
 + [ ] GET /users/{username} 
+  - [ ] Unit test
 + [ ] PUT /users/{username} 
+  - [ ] Unit test
 + [ ] POST /sessions 
+  - [ ] Unit test
 *** TODO packages [0/2]
 + [ ] POST /packages
+  - [ ] Unit test
 + [ ] POST /transactions/packages
+  - [ ] Unit test
 *** TODO cards [0/3]
 + [ ] GET /cards
+  - [ ] Unit test
 + [ ] GET /deck
+  - [ ] Unit test
 + [ ] PUT /deck
+  - [ ] Unit test
 *** TODO game [0/3] 
 + [ ] GET /stats
+  - [ ] Unit test
 + [ ] GET /scoreboard
+  - [ ] Unit test
 + [ ] POST /battles
+  - [ ] Unit test
 *** TODO trading [0/4]
 + [ ] GET /tradings
+  - [ ] Unit test
 + [ ] POST /tradings
+  - [ ] Unit test
 + [ ] DELETE /tradings/{tradingdealid}
+  - [ ] Unit test
 + [ ] POST /tradings/{tradingdealid}
+  - [ ] Unit test
 ** TODO Controllers [0/5]
 + [ ] UserController
+  - [ ] Unit test
 + [ ] PackagesController
+  - [ ] Unit test
 + [ ] CardsController
+  - [ ] Unit test
 + [ ] GameController
+  - [ ] Unit test
 + [ ] TradingController
-** TODO Synchronization
+  - [ ] Unit test
+** TODO Synchronization [0/2]
 :info:
 https://stackoverflow.com/a/2120409
 :end:
++ [ ] Identify critical areas
++ [ ] Use synchronized keyword
+** TODO Unit Tests [/]
++ [ ] Find out how to use mocking

@@ -14,7 +14,8 @@ public class PostgresUserRepository implements UserRepository {
                 CREATE TABLE IF NOT EXISTS users(
                     id serial primary key,
                     username TEXT NOT NULL,
-                    password TEXT NOT NULL
+                    password TEXT NOT NULL,
+                    token TEXT NOT NULL
                 );
             """;
 
@@ -29,11 +30,13 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public void persist(Credentials credentials) throws IllegalStateException {
         final String ADD_USER = """
-                INSERT INTO users (username, password) VALUES (?, ?)
-                    """;
+                INSERT INTO users (username, password, token) VALUES (?, ?, ?)
+                        """;
+        final var user = new User(credentials);
         try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(ADD_USER)) {
-            ps.setString(1, credentials.getUsername());
-            ps.setString(2, credentials.getPassword());
+            ps.setString(1, user.getCredentials().getUsername());
+            ps.setString(2, user.getCredentials().getPassword());
+            ps.setString(3, user.getToken());
             ps.execute();
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to save user.", e);

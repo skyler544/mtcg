@@ -1,27 +1,28 @@
 package org.mtcg.application.model;
 
 public class User {
-    private String username;
-    private String password;
+    private String token;
+    private Credentials credentials;
 
-    public User(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
+    public User(Credentials credentials) {
+        this.credentials = credentials;
+        this.setToken();
     }
 
-    private void setUsername(String username) {
-        this.username = username;
+    public Credentials getCredentials() {
+        return credentials;
     }
 
-    private void setPassword(String password) {
-        this.password = password;
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 
-    public String getUsername() {
-        return username;
+    // If we were serious about this, the token would be a hash
+    private void setToken() {
+        this.token = this.credentials.getUsername() + "-mtcgToken";
     }
 
-    public String getPassword() {
-        return password;
+    public String getToken() {
+        return token;
     }
 }

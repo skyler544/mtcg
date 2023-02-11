@@ -41,7 +41,7 @@ public class RestUserControllerTest {
         boolean thrown = false;
         final var credentials = new Credentials("foo", "bar");
         when(userService.findUserByUsername(credentials.getUsername()))
-            .thenReturn(new User(credentials));
+            .thenReturn("foo-token");
 
         // Act
         try {

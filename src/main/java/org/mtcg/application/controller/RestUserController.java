@@ -32,8 +32,8 @@ public class RestUserController implements Controller {
     }
 
     public Response register(Credentials credentials) {
-        User user = userService.findUserByUsername(credentials.getUsername());
-        if (user != null) {
+        String token = userService.findUserByUsername(credentials.getUsername());
+        if (token != null) {
             throw new BadRequestException("User with username " + credentials.getUsername() + " already exists");
         } else {
             userService.persist(credentials);

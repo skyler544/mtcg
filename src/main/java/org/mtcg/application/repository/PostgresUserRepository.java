@@ -45,12 +45,9 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public User findUserByUsername(String username) throws IllegalStateException {
-        // TODO: is it necessary to get the password here?
-        // seems like a bad design to force having a password when using this method
-        // only for checking if the user already exists.
+    public String findUserByUsername(String username) throws IllegalStateException {
         final String FIND_USER = """
-                SELECT username, password token FROM users WHERE username=?
+                SELECT username, token FROM users WHERE username=?
                         """;
 
         try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(FIND_USER)) {
@@ -59,8 +56,8 @@ public class PostgresUserRepository implements UserRepository {
             if (ps.execute()) {
                 ResultSet rs = ps.getResultSet();
                 rs.next();
-                var credentials = new Credentials(rs.getString(2), rs.getString(3));
-                return new User(credentials);
+                // return the token
+                return rs.getString(2);
             } else {
                 return null;
             }

@@ -36,6 +36,9 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 + [ ] Create Schema
 ** TODO Controllers [0/5]
 + [-] UserController [1/4]
+  :LOGBOOK:
+  CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
+  :END:
   - [X] POST /users
     + [X] Unit test
   - [ ] GET /users/{username} 

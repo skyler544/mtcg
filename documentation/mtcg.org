@@ -29,102 +29,76 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 + [X] Find out how to connect to the database in code
 + [X] Find out how to write prepared statements
   - [X] Prevent SQL injection
-    + Using methods such as `setString(foo)` neutralizes the sql injection
+    + Using methods such as =setString(foo)= neutralizes the sql injection
       threat by turning even dangerous input into a simple string
   - [X] Take advantage of autocloseable functionality
-    + Always use the try-with-resources pattern, taking advantage of the static HikariDataSource
+    + Always use the try-with-resources pattern, taking advantage of the static =HikariDataSource=
 + [ ] Create Schema
-** TODO Endpoints [0/5]
-*** TODO users [0/4]
-+ [ ] POST /users
-  - [ ] Unit test
-+ [ ] GET /users/{username} 
-  - [ ] Unit test
-+ [ ] PUT /users/{username} 
-  - [ ] Unit test
-+ [ ] POST /sessions 
-  - [ ] Unit test
-*** TODO cards [0/3]
-+ [ ] GET /cards
-  - [ ] Unit test
-+ [ ] GET /deck
-  - [ ] Unit test
-+ [ ] PUT /deck
-  - [ ] Unit test
-*** TODO packages [0/2]
-+ [ ] POST /packages
-  - [ ] Unit test
-+ [ ] POST /transactions/packages
-  - [ ] Unit test
-*** TODO game [0/3] 
-+ [ ] GET /stats
-  - [ ] Unit test
-+ [ ] GET /scoreboard
-  - [ ] Unit test
-+ [ ] POST /battles
-  - [ ] Unit test
-*** TODO trading [0/4]
-+ [ ] GET /tradings
-  - [ ] Unit test
-+ [ ] POST /tradings
-  - [ ] Unit test
-+ [ ] DELETE /tradings/{tradingdealid}
-  - [ ] Unit test
-+ [ ] POST /tradings/{tradingdealid}
-  - [ ] Unit test
 ** TODO Controllers [0/5]
-+ [ ] UserController
-  - [ ] Unit test
-+ [ ] PackagesController
-  - [ ] Unit test
-+ [ ] CardsController
-  - [ ] Unit test
-+ [ ] GameController
-  - [ ] Unit test
-+ [ ] TradingController
-  - [ ] Unit test
++ [-] UserController [1/4]
+  - [X] POST /users
+    + [X] Unit test
+  - [ ] GET /users/{username} 
+    + [ ] Unit test
+  - [ ] PUT /users/{username} 
+    + [ ] Unit test
+  - [ ] POST /sessions 
+    + [ ] Unit test
++ [ ] PackagesController [0/2]
+  - [ ] POST /packages
+    + [ ] Unit test
+  - [ ] POST /transactions/packages
+    + [ ] Unit test
++ [ ] CardsController [0/3]
+  - [ ] GET /cards
+    + [ ] Unit test
+  - [ ] GET /deck
+    + [ ] Unit test
+  - [ ] PUT /deck
+    + [ ] Unit test
++ [ ] GameController [0/3]
+  - [ ] GET /stats
+    + [ ] Unit test
+  - [ ] GET /scoreboard
+    + [ ] Unit test
+  - [ ] POST /battles
+    + [ ] Unit test
++ [ ] TradingController [0/4]
+  - [ ] GET /tradings
+    + [ ] Unit test
+  - [ ] POST /tradings
+    + [ ] Unit test
+  - [ ] DELETE /tradings/{tradingdealid}
+    + [ ] Unit test
+  - [ ] POST /tradings/{tradingdealid}
+    + [ ] Unit test
 ** TODO Services [0/5]
 + [ ] UserService
-  - [ ] Unit test
 + [ ] PackagesService
-  - [ ] Unit test
 + [ ] CardsService
-  - [ ] Unit test
 + [ ] GameService
-  - [ ] Unit test
 + [ ] TradingService
-  - [ ] Unit test
 ** TODO Repositories [0/5]
 + [ ] UserRepository
-  - [ ] Unit test
 + [ ] PackagesRepository
-  - [ ] Unit test
 + [ ] CardsRepository
-  - [ ] Unit test
 + [ ] GameRepository
-  - [ ] Unit test
 + [ ] TradingRepository
-  - [ ] Unit test
 ** TODO Model [0/5]
 + [ ] UserModel
-  - [ ] Unit test
 + [ ] PackagesModel
-  - [ ] Unit test
 + [ ] CardsModel
-  - [ ] Unit test
 + [ ] GameModel
-  - [ ] Unit test
 + [ ] TradingModel
-  - [ ] Unit test
 ** TODO Synchronization [0/2]
 :info:
 https://stackoverflow.com/a/2120409
 :end:
 + [ ] Identify critical areas
 + [ ] Use synchronized keyword
-** TODO Unit Tests [0/1]
+** TODO Unit Tests [1/1]
 :LOGBOOK:
-CLOCK: [2023-02-11 Sat 10:09]
+CLOCK: [2023-02-11 Sat 10:09]--[2023-02-11 Sat 13:15] =>  3:06
 CLOCK: [2023-02-06 Mon 18:37]--[2023-02-06 Mon 18:56] =>  0:19
 :END:
-+ [ ] Find out how to use mocking
++ [X] Find out how to use mocking

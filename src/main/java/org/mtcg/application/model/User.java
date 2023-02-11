@@ -3,9 +3,7 @@ package org.mtcg.application.model;
 public class User {
     private String token;
     private Credentials credentials;
-    private String name;
-	private String bio;
-	private String image;
+    private UserProfile userProfile;
 
 	public User(Credentials credentials) {
         this.credentials = credentials;
@@ -29,27 +27,11 @@ public class User {
         this.token = this.credentials.getUsername() + "-mtcgToken";
     }
 
-    public String getName() {
-		return name;
+	public UserProfile getUserProfile() {
+		return userProfile;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-    public String getBio() {
-		return bio;
-	}
-
-	public void setBio(String bio) {
-		this.bio = bio;
-	}
-
-    public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
 	}
 }

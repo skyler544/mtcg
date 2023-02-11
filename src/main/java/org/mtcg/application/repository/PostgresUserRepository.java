@@ -2,6 +2,7 @@ package org.mtcg.application.repository;
 
 import org.mtcg.application.model.Credentials;
 import org.mtcg.application.model.User;
+import org.mtcg.application.model.UserProfile;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,6 +66,22 @@ public class PostgresUserRepository implements UserRepository {
 
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to query by username.", e);
+        }
+    }
+
+    @Override
+    public void persistUserProfile(String token, UserProfile userProfile) throws IllegalStateException {
+        final String SET_USER_PROFILE = """
+                UPDATE users SET name=?, bio=?, image=? WHERE token=?
+                """;
+        try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(SET_USER_PROFILE)) {
+            ps.setString(1, userProfile.getName());
+            ps.setString(2, userProfile.getBio());
+            ps.setString(3, userProfile.getImage());
+            ps.setString(4, token);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to update user profile.");
         }
     }
 }

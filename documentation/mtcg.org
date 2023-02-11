@@ -83,11 +83,48 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
   - [ ] Unit test
 + [ ] TradingController
   - [ ] Unit test
+** TODO Services [0/5]
++ [ ] UserService
+  - [ ] Unit test
++ [ ] PackagesService
+  - [ ] Unit test
++ [ ] CardsService
+  - [ ] Unit test
++ [ ] GameService
+  - [ ] Unit test
++ [ ] TradingService
+  - [ ] Unit test
+** TODO Repositories [0/5]
++ [ ] UserRepository
+  - [ ] Unit test
++ [ ] PackagesRepository
+  - [ ] Unit test
++ [ ] CardsRepository
+  - [ ] Unit test
++ [ ] GameRepository
+  - [ ] Unit test
++ [ ] TradingRepository
+  - [ ] Unit test
+** TODO Model [0/5]
++ [ ] UserModel
+  - [ ] Unit test
++ [ ] PackagesModel
+  - [ ] Unit test
++ [ ] CardsModel
+  - [ ] Unit test
++ [ ] GameModel
+  - [ ] Unit test
++ [ ] TradingModel
+  - [ ] Unit test
 ** TODO Synchronization [0/2]
 :info:
 https://stackoverflow.com/a/2120409
 :end:
 + [ ] Identify critical areas
 + [ ] Use synchronized keyword
-** TODO Unit Tests [/]
+** TODO Unit Tests [0/1]
+:LOGBOOK:
+CLOCK: [2023-02-11 Sat 10:09]
+CLOCK: [2023-02-06 Mon 18:37]--[2023-02-06 Mon 18:56] =>  0:19
+:END:
 + [ ] Find out how to use mocking

@@ -4,6 +4,6 @@ import org.mtcg.application.model.Credentials;
 import org.mtcg.application.model.User;
 
 public interface UserRepository {
-    void save(Credentials credentials) throws IllegalStateException;
+    void persist(Credentials credentials) throws IllegalStateException;
     User findUserByUsername(String username);
 }

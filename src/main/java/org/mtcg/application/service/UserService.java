@@ -15,7 +15,7 @@ public class UserService {
         return userRepository.findUserByUsername(username);
     }
 
-    public void save(Credentials credentials) {
-        userRepository.save(credentials);
+    public void persist(Credentials credentials) {
+        userRepository.persist(credentials);
     }
 }

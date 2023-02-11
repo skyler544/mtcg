@@ -27,7 +27,7 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public void save(Credentials credentials) throws IllegalStateException {
+    public void persist(Credentials credentials) throws IllegalStateException {
         final String ADD_USER = """
                 INSERT INTO users (username, password) VALUES (?, ?)
                     """;

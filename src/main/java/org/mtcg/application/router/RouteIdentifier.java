@@ -4,10 +4,17 @@ import java.util.Objects;
 
 public class RouteIdentifier {
     private final String path;
+    private final String pathArgument;
     private final String httpVerb;
 
     public RouteIdentifier(String path, String httpVerb) {
-        this.path = path;
+        if (path.split("/").length > 2){
+            this.path = path.split("/")[1];
+            this.pathArgument = path.split("/")[2];
+        } else {
+            this.path = path;
+            this.pathArgument = null;
+        }
         this.httpVerb = httpVerb;
     }
 

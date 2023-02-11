@@ -13,10 +13,12 @@ public class PostgresUserRepository implements UserRepository {
 
     private static final String SETUP_TABLE = """
                 CREATE TABLE IF NOT EXISTS users(
-                    id serial primary key,
+                    token TEXT PRIMARY KEY,
                     username TEXT NOT NULL,
                     password TEXT NOT NULL,
-                    token TEXT NOT NULL
+                    name TEXT,
+                    bio TEXT,
+                    image TEXT
                 );
             """;
 
@@ -31,13 +33,13 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public void persist(Credentials credentials) throws IllegalStateException {
         final String ADD_USER = """
-                INSERT INTO users (username, password, token) VALUES (?, ?, ?)
-                        """;
+                INSERT INTO users (token, username, password) VALUES (?, ?, ?)
+            """;
         final var user = new User(credentials);
         try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(ADD_USER)) {
-            ps.setString(1, user.getCredentials().getUsername());
-            ps.setString(2, user.getCredentials().getPassword());
-            ps.setString(3, user.getToken());
+            ps.setString(1, user.getToken());
+            ps.setString(2, user.getCredentials().getUsername());
+            ps.setString(3, user.getCredentials().getPassword());
             ps.execute();
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to save user.", e);
@@ -47,17 +49,16 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public String findUserByUsername(String username) throws IllegalStateException {
         final String FIND_USER = """
-                SELECT username, token FROM users WHERE username=?
+                SELECT token, username FROM users WHERE username=?
                         """;
 
         try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(FIND_USER)) {
             ps.setString(1, username);
-
-            if (ps.execute()) {
-                ResultSet rs = ps.getResultSet();
-                rs.next();
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
                 // return the token
-                return rs.getString(2);
+                return rs.getString(1);
             } else {
                 return null;
             }

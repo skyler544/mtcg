@@ -86,4 +86,25 @@ public class PostgresUserRepository implements UserRepository {
             throw new IllegalStateException("Failed to update user profile.");
         }
     }
+
+    @Override
+    public UserProfile findUserProfile(String token) throws IllegalStateException {
+        final String GET_USER_PROFILE = """
+                SELECT name, bio, image FROM users WHERE token=?
+                """;
+        try (PreparedStatement ps = connection.prepareStatement(GET_USER_PROFILE)) {
+            ps.setString(1, token);
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                // return the token
+                return new UserProfile(rs.getString(1), rs.getString(2), rs.getString(3));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to retrieve user profile.");
+        }
+    }
 }

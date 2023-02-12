@@ -8,4 +8,5 @@ public interface UserRepository {
     String findUserByUsername(String username) throws IllegalStateException;
 
     void persistUserProfile(String token, UserProfile userProfile) throws IllegalStateException;
+    UserProfile findUserProfile(String token) throws IllegalStateException;
 }

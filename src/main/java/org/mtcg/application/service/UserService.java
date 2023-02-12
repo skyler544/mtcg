@@ -31,4 +31,12 @@ public class UserService {
             throw new UnauthorizedException("Authentication failure.");
         }
     }
+
+    public UserProfile findUserProfile(String token, String username) throws UnauthorizedException {
+        if (authenticate(username, token)) {
+            return userRepository.findUserProfile(token);
+        } else {
+            throw new UnauthorizedException("Authentication failure.");
+        }
+    }
 }

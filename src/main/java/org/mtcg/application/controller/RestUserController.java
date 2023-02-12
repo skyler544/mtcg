@@ -12,6 +12,9 @@ import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,7 @@ import static org.mtcg.application.router.RouteIdentifier.routeIdentifier;
 public class RestUserController implements Controller {
 
     private final UserService userService;
+    private static final ObjectMapper om = new ObjectMapper();
 
     public RestUserController(UserService userService) {
         this.userService = userService;
@@ -54,21 +58,29 @@ public class RestUserController implements Controller {
         return response;
     }
 
-    public Response updateProfile(RequestContext requestContext) {
-        // data transformation:
-
+    public Response getProfile(RequestContext requestContext) {
         // get username from route
         String username = requestContext.getPath().split("/")[2];
-        String token = "";
+        String token = getToken(requestContext);
 
-        for (var header : requestContext.getHeaders()) {
-            // get token from header
-            if (header.getName().equals("Authorization")) {
-                // we don't need the word "Bearer"
-                token = header.getValue().split(" ")[1];
-            }
+        return getProfile(token, username);
+    }
+
+    public Response getProfile(String token, String username) {
+        UserProfile userProfile = userService.findUserProfile(token, username);
+
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        try {
+            String foo = om.writeValueAsString(userProfile);
+            System.out.println(foo);
+            response.setBody(foo);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Internal server error.");
         }
 
+        return response;
+    }
 
     public Response updateProfile(RequestContext requestContext) {
         // get username from route
@@ -112,6 +124,10 @@ public class RestUserController implements Controller {
         userRoutes.add(new Pair<>(
                 routeIdentifier("/sessions", "POST"),
                 this::login));
+
+        userRoutes.add(new Pair<>(
+                routeIdentifier("/users/{username}", "GET"),
+                this::getProfile));
 
         userRoutes.add(new Pair<>(
                 routeIdentifier("/users/{username}", "PUT"),

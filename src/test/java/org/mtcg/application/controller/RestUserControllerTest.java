@@ -85,4 +85,33 @@ public class RestUserControllerTest {
         // Assert
         assertTrue(thrown);
     }
+
+    @Test
+    void getProfileSuccessfully() {
+        // Arrange
+        final String token = "token";
+        final String username = "username";
+        // Act
+        Response response = restUserController.getProfile(token, username);
+        // Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+    }
+
+    @Test
+    void getProfileFailure() {
+        // Arrange
+        boolean thrown = false;
+        final String token = "token";
+        final String username = "username";
+        doThrow(new UnauthorizedException("Authentication failure."))
+                .when(userService).findUserProfile(token, username);
+        // Act
+        try {
+            restUserController.getProfile(token, username);
+        } catch (UnauthorizedException e) {
+            thrown = true;
+        }
+        // Assert
+        assertTrue(thrown);
+    }
 }

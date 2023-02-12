@@ -4,6 +4,7 @@ import org.mtcg.application.model.Credentials;
 import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import org.mtcg.application.config.DataSource;
 
 public class PostgresUserRepository implements UserRepository {
+    private static final Connection connection = DataSource.getInstance().getConnection();
 
     private static final String SETUP_TABLE = """
                 CREATE TABLE IF NOT EXISTS users(
@@ -24,7 +26,7 @@ public class PostgresUserRepository implements UserRepository {
             """;
 
     public PostgresUserRepository() {
-        try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(SETUP_TABLE)) {
+        try (PreparedStatement ps = connection.prepareStatement(SETUP_TABLE)) {
             ps.execute();
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to set up table.", e);
@@ -34,10 +36,10 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public void persist(Credentials credentials) throws IllegalStateException {
         final String ADD_USER = """
-                INSERT INTO users (token, username, password) VALUES (?, ?, ?)
-            """;
+                    INSERT INTO users (token, username, password) VALUES (?, ?, ?)
+                """;
         final var user = new User(credentials);
-        try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(ADD_USER)) {
+        try (PreparedStatement ps = connection.prepareStatement(ADD_USER)) {
             ps.setString(1, user.getToken());
             ps.setString(2, user.getCredentials().getUsername());
             ps.setString(3, user.getCredentials().getPassword());
@@ -53,7 +55,7 @@ public class PostgresUserRepository implements UserRepository {
                 SELECT token, username FROM users WHERE username=?
                         """;
 
-        try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(FIND_USER)) {
+        try (PreparedStatement ps = connection.prepareStatement(FIND_USER)) {
             ps.setString(1, username);
             ps.execute();
             ResultSet rs = ps.getResultSet();
@@ -74,7 +76,7 @@ public class PostgresUserRepository implements UserRepository {
         final String SET_USER_PROFILE = """
                 UPDATE users SET name=?, bio=?, image=? WHERE token=?
                 """;
-        try (PreparedStatement ps = DataSource.getInstance().getConnection().prepareStatement(SET_USER_PROFILE)) {
+        try (PreparedStatement ps = connection.prepareStatement(SET_USER_PROFILE)) {
             ps.setString(1, userProfile.getName());
             ps.setString(2, userProfile.getBio());
             ps.setString(3, userProfile.getImage());

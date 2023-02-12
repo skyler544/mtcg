@@ -17,7 +17,7 @@ DEADLINE: <2023-02-26 Sun 23:55>
 Checklist:
 (async-shell-command "chromium https://docs.google.com/spreadsheets/d/1QpgEEVFwCxaCE-Q3iN1O-8myCMOjknp8/edit#gid=231551220")
 :end:
-** TODO Database [3/4]
+** TODO Database [4/4]
 :LOGBOOK:
 CLOCK: [2023-02-06 Mon 17:13]--[2023-02-06 Mon 18:37] =>  1:24
 CLOCK: [2023-02-05 Sun 18:14]--[2023-02-05 Sun 19:49] =>  1:35
@@ -33,7 +33,9 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
       threat by turning even dangerous input into a simple string
   - [X] Take advantage of autocloseable functionality
     + Always use the try-with-resources pattern, taking advantage of the static =HikariDataSource=
-+ [ ] Create Schema
++ [X] Create Schema
+  - This happens 'automatically' as a result of using create table statements in
+    the repositories
 ** TODO Controllers [1/5]
 + [X] UserController [4/4]
   :LOGBOOK:

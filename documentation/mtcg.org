@@ -35,16 +35,17 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
     + Always use the try-with-resources pattern, taking advantage of the static =HikariDataSource=
 + [ ] Create Schema
 ** TODO Controllers [0/5]
-+ [-] UserController [1/4]
++ [-] UserController [2/4]
   :LOGBOOK:
+  CLOCK: [2023-02-12 Sun 10:17]--[2023-02-12 Sun 10:46] =>  0:29
   CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
   :END:
   - [X] POST /users
     + [X] Unit test
   - [ ] GET /users/{username} 
     + [ ] Unit test
-  - [ ] PUT /users/{username} 
-    + [ ] Unit test
+  - [X] PUT /users/{username} 
+    + [X] Unit test
   - [ ] POST /sessions 
     + [ ] Unit test
 + [ ] PackagesController [0/2]

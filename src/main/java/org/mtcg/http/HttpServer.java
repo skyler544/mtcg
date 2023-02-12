@@ -77,7 +77,9 @@ public class HttpServer {
                         w.newLine();
                         w.newLine();
                         // write body
-                        w.write(response.getBody());
+                        if (response.getBody() != null) {
+                            w.write(response.getBody());
+                        }
 
                         // some formatting for readability
                         w.newLine();

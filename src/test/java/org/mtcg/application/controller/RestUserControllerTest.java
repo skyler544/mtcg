@@ -114,4 +114,43 @@ public class RestUserControllerTest {
         // Assert
         assertTrue(thrown);
     }
+
+    @Test
+    void loginSuccessfully() {
+        // Arrange
+        final String token = "foo-mtcgToken";
+        final String username = "foo";
+        final String password = "bar";
+        Credentials credentials = new Credentials(username, password);
+        when(userService.findUserByUsername(username)).thenReturn(token);
+
+        // Act
+        Response response = restUserController.login(credentials);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+        assertEquals(token, response.getBody());
+    }
+
+    @Test
+    void loginFailure() {
+        // Arrange
+        boolean thrown = false;
+        final String token = "foo-mtcgToken";
+        final String username = "foo";
+        final String password = "bar";
+        Credentials credentials = new Credentials(username, password);
+        when(userService.findUserByUsername(username))
+                .thenThrow(new UnauthorizedException("Authentication failure."));
+
+        // Act
+        try {
+            restUserController.login(credentials);
+        } catch (UnauthorizedException e) {
+            thrown = true;
+        }
+
+        // Assert
+        assertTrue(thrown);
+    }
 }

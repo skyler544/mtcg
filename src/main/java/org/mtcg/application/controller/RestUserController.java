@@ -54,7 +54,9 @@ public class RestUserController implements Controller {
 
     public Response login(Credentials credentials) {
         Response response = new Response();
+        String token = userService.findUserByUsername(credentials.getUsername());
         response.setHttpStatus(HttpStatus.OK);
+        response.setBody(token);
         return response;
     }
 

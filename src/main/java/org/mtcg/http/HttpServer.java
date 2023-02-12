@@ -77,6 +77,14 @@ public class HttpServer {
                         w.newLine();
                         w.newLine();
                         // write body
+                        w.write(response.getBody());
+
+                        // some formatting for readability
+                        w.newLine();
+                        w.write("+------------------------------+");
+                        w.newLine();
+
+                        // clear output stream
                         w.flush();
                         // no need to manually close anything; we're using
                         // autocloseable

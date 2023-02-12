@@ -12,19 +12,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String findUserByUsername(String username) {
+    public String findUserByUsername(String username) throws IllegalStateException {
         return userRepository.findUserByUsername(username);
     }
 
-    public void persist(Credentials credentials) {
+    public void persist(Credentials credentials) throws IllegalStateException {
         userRepository.persist(credentials);
     }
 
-    public boolean authenticate(String username, String token) {
+    public boolean authenticate(String username, String token) throws IllegalStateException {
         return findUserByUsername(username).equals(token);
     }
 
-    public void persistUserProfile(String token, String username, UserProfile userProfile) {
+    public void persistUserProfile(String token, String username, UserProfile userProfile) throws UnauthorizedException {
         if (authenticate(username, token)) {
             userRepository.persistUserProfile(token, userProfile);
         } else {

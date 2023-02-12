@@ -69,6 +69,12 @@ public class RestUserController implements Controller {
             }
         }
 
+
+    public Response updateProfile(RequestContext requestContext) {
+        // get username from route
+        String username = requestContext.getPath().split("/")[2];
+        String token = getToken(requestContext);
+
         UserProfile userProfile = requestContext.getBodyAs(UserProfile.class);
         return updateProfile(token, username, userProfile);
     }
@@ -82,6 +88,17 @@ public class RestUserController implements Controller {
         Response response = new Response();
         response.setHttpStatus(HttpStatus.OK);
         return response;
+    }
+
+    private static String getToken(RequestContext requestContext) {
+        String token = "";
+        for (var header : requestContext.getHeaders()) {
+            if (header.getName().equals("Authorization")) {
+                // we don't need the word "Bearer"
+                token = header.getValue().split(" ")[1];
+            }
+        }
+        return token;
     }
 
     @Override

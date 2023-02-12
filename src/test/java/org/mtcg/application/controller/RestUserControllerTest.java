@@ -136,7 +136,6 @@ public class RestUserControllerTest {
     void loginFailure() {
         // Arrange
         boolean thrown = false;
-        final String token = "foo-mtcgToken";
         final String username = "foo";
         final String password = "bar";
         Credentials credentials = new Credentials(username, password);

@@ -1,11 +1,12 @@
 package org.mtcg.application.controller;
 
-import org.mtcg.application.model.User;
 import org.mtcg.application.model.Credentials;
+import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.service.UserService;
 import org.mtcg.http.BadRequestException;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.Response;
+import org.mtcg.http.UnauthorizedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,7 +42,7 @@ public class RestUserControllerTest {
         boolean thrown = false;
         final var credentials = new Credentials("foo", "bar");
         when(userService.findUserByUsername(credentials.getUsername()))
-            .thenReturn("foo-token");
+                .thenReturn("foo-token");
 
         // Act
         try {
@@ -50,6 +51,37 @@ public class RestUserControllerTest {
             thrown = true;
         }
 
+        // Assert
+        assertTrue(thrown);
+    }
+
+    @Test
+    void testUpdateProfileSuccessfully() {
+        // Arrange
+        final UserProfile userProfile = new UserProfile("foo", "bar", "baz");
+        final String token = "token";
+        final String username = "username";
+        // Act
+        Response response = restUserController.updateProfile(token, username, userProfile);
+        // Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+    }
+
+    @Test
+    void testUpdateProfileFailure() {
+        // Arrange
+        boolean thrown = false;
+        final UserProfile userProfile = new UserProfile("foo", "bar", "baz");
+        final String token = "token";
+        final String username = "username";
+        doThrow(new UnauthorizedException("Authentication failure."))
+                .when(userService).persistUserProfile(token, username, userProfile);
+        // Act
+        try {
+            restUserController.updateProfile(token, username, userProfile);
+        } catch (UnauthorizedException e) {
+            thrown = true;
+        }
         // Assert
         assertTrue(thrown);
     }

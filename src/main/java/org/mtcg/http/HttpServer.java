@@ -53,13 +53,17 @@ public class HttpServer {
                             // signature of the method when writing the route
                             // methods.
                             response = route.process(requestContext);
-                        } catch (BadRequestException badRequestException) {
+                        } catch (BadRequestException e) {
                             response = new Response();
-                            response.setBody(badRequestException.getMessage());
+                            response.setBody(e.getMessage());
                             response.setHttpStatus(HttpStatus.BAD_REQUEST);
-                        } catch (UnauthorizedException unauthorizedException) {
+                        } catch (ForbiddenException e) {
                             response = new Response();
-                            response.setBody(unauthorizedException.getMessage());
+                            response.setBody(e.getMessage());
+                            response.setHttpStatus(HttpStatus.FORBIDDEN);
+                        } catch (UnauthorizedException e) {
+                            response = new Response();
+                            response.setBody(e.getMessage());
                             response.setHttpStatus(HttpStatus.UNAUTHORIZED);
                         } catch (IllegalStateException e) {
                             response = new Response();

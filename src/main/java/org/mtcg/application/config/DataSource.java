@@ -39,7 +39,6 @@ public class DataSource implements DbConnector {
     // via the try-with-resources pattern.
     public Connection getConnection() {
         try {
-            System.out.println("Hello from Hikari");
             return ds.getConnection();
         } catch (SQLException e) {
             throw new IllegalStateException("Database not available!", e);

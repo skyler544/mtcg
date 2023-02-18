@@ -37,13 +37,14 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
   - This happens 'automatically' as a result of using create table statements in
     the repositories
 ** TODO Controllers [1/5]
+:LOGBOOK:
+CLOCK: [2023-02-18 Sat 11:00]--[2023-02-18 Sat 12:10] =>  1:10
+CLOCK: [2023-02-12 Sun 15:57]--[2023-02-12 Sun 16:15] =>  0:18
+CLOCK: [2023-02-12 Sun 10:54]--[2023-02-12 Sun 12:14] =>  1:20
+CLOCK: [2023-02-12 Sun 10:17]--[2023-02-12 Sun 10:46] =>  0:29
+CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
+:END:
 + [X] UserController [4/4]
-  :LOGBOOK:
-  CLOCK: [2023-02-12 Sun 15:57]--[2023-02-12 Sun 16:15] =>  0:18
-  CLOCK: [2023-02-12 Sun 10:54]--[2023-02-12 Sun 12:14] =>  1:20
-  CLOCK: [2023-02-12 Sun 10:17]--[2023-02-12 Sun 10:46] =>  0:29
-  CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
-  :END:
   - [X] POST /users
     + [X] Unit test
   - [X] GET /users/{username}

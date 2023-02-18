@@ -1,6 +1,7 @@
 package org.mtcg.application.controller;
 
 import org.mtcg.application.model.Credentials;
+import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.service.UserService;
 import org.mtcg.http.BadRequestException;
@@ -42,7 +43,7 @@ public class RestUserControllerTest {
         boolean thrown = false;
         final var credentials = new Credentials("foo", "bar");
         when(userService.findUserByUsername(credentials.getUsername()))
-                .thenReturn("foo-token");
+            .thenReturn(new User(credentials));
 
         // Act
         try {
@@ -122,7 +123,7 @@ public class RestUserControllerTest {
         final String username = "foo";
         final String password = "bar";
         Credentials credentials = new Credentials(username, password);
-        when(userService.findUserByUsername(username)).thenReturn(token);
+        when(userService.findUserByUsername(username)).thenReturn(new User(credentials));
 
         // Act
         Response response = restUserController.login(credentials);

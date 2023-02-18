@@ -61,6 +61,17 @@ public class RequestContext {
         this.body = body;
     }
 
+    public String getToken() {
+        String token = "";
+        for (var header : getHeaders()) {
+            if (header.getName().equals("Authorization")) {
+                // we don't need the word "Bearer"
+                token = header.getValue().split(" ")[1];
+            }
+        }
+        return token;
+    }
+
     public <T> T getBodyAs(Class<T> clazz) {
         try {
             return objectMapper.readValue(body, clazz);

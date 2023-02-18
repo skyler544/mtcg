@@ -52,18 +52,17 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public String findUserByUsername(String username) throws IllegalStateException {
+    public User findUserByUsername(String username) throws IllegalStateException {
         final String FIND_USER = """
-                SELECT token, username FROM users WHERE username=?
-                        """;
+                SELECT username, password FROM users WHERE username=?
+                            """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_USER)) {
             ps.setString(1, username);
             ps.execute();
             ResultSet rs = ps.getResultSet();
             if (rs.next()) {
-                // return the token
-                return rs.getString(1);
+                return new User(new Credentials(rs.getString(1), rs.getString(2)));
             } else {
                 return null;
             }

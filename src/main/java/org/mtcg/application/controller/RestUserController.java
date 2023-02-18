@@ -1,6 +1,7 @@
 package org.mtcg.application.controller;
 
 import org.mtcg.application.model.Credentials;
+import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.router.Controller;
 import org.mtcg.application.router.Route;
@@ -36,8 +37,7 @@ public class RestUserController implements Controller {
     }
 
     public Response register(Credentials credentials) {
-        String token = userService.findUserByUsername(credentials.getUsername());
-        if (token != null) {
+        if (userService.findUserByUsername(credentials.getUsername()) != null) {
             throw new BadRequestException("User with username " + credentials.getUsername() + " already exists");
         } else {
             userService.saveCredentials(credentials);
@@ -54,7 +54,11 @@ public class RestUserController implements Controller {
 
     public Response login(Credentials credentials) {
         Response response = new Response();
-        String token = userService.findUserByUsername(credentials.getUsername());
+        User user = userService.findUserByUsername(credentials.getUsername());
+        String token = "";
+        if (user != null) {
+            token = user.getToken();
+        }
         response.setHttpStatus(HttpStatus.OK);
         response.setBody(token);
         return response;
@@ -63,7 +67,7 @@ public class RestUserController implements Controller {
     public Response getProfile(RequestContext requestContext) {
         // get username from route
         String username = requestContext.getPath().split("/")[2];
-        String token = getToken(requestContext);
+        String token = requestContext.getToken();
 
         return getProfile(token, username);
     }
@@ -87,7 +91,7 @@ public class RestUserController implements Controller {
     public Response updateProfile(RequestContext requestContext) {
         // get username from route
         String username = requestContext.getPath().split("/")[2];
-        String token = getToken(requestContext);
+        String token = requestContext.getToken();
 
         UserProfile userProfile = requestContext.getBodyAs(UserProfile.class);
         return updateProfile(token, username, userProfile);
@@ -102,17 +106,6 @@ public class RestUserController implements Controller {
         Response response = new Response();
         response.setHttpStatus(HttpStatus.OK);
         return response;
-    }
-
-    private static String getToken(RequestContext requestContext) {
-        String token = "";
-        for (var header : requestContext.getHeaders()) {
-            if (header.getName().equals("Authorization")) {
-                // we don't need the word "Bearer"
-                token = header.getValue().split(" ")[1];
-            }
-        }
-        return token;
     }
 
     @Override

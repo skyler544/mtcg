@@ -1,6 +1,7 @@
 package org.mtcg.application.service;
 
 import org.mtcg.application.model.Credentials;
+import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.repository.UserRepository;
 import org.mtcg.http.ForbiddenException;
@@ -13,12 +14,21 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String findUserByUsername(String username) throws IllegalStateException {
+    public User findUserByUsername(String username) throws IllegalStateException {
         return userRepository.findUserByUsername(username);
     }
 
     public void saveCredentials(Credentials credentials) throws IllegalStateException {
         userRepository.saveCredentials(credentials);
+    }
+
+    public String authenticateViaCredentials(Credentials credentials) throws IllegalStateException {
+        User user = findUserByUsername(credentials.getUsername());
+        if (user.getCredentials().getPassword().equals(credentials.getPassword())) {
+            return user.getToken();
+        } else {
+            return "";
+        }
     }
 
     public boolean authenticate(String username, String token) throws IllegalStateException {
@@ -49,7 +59,7 @@ public class UserService {
     public void setUserCoins(String token, String username, int coins) throws UnauthorizedException {
         if (adminAuthenticate(token)) {
             // now get the token of the user whose coins we want to set
-            userRepository.saveUserCoins(findUserByUsername(username), coins);
+            userRepository.saveUserCoins(username, coins);
         } else {
             throw new UnauthorizedException("Authentication failure.");
         }

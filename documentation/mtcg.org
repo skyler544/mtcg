@@ -36,8 +36,9 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 + [X] Create Schema
   - This happens 'automatically' as a result of using create table statements in
     the repositories
-** TODO Controllers [1/5]
+** TODO Controllers [1/4]
 :LOGBOOK:
+CLOCK: [2023-02-18 Sat 12:37]--[2023-02-18 Sat 13:59] =>  1:22
 CLOCK: [2023-02-18 Sat 11:00]--[2023-02-18 Sat 12:10] =>  1:10
 CLOCK: [2023-02-12 Sun 15:57]--[2023-02-12 Sun 16:15] =>  0:18
 CLOCK: [2023-02-12 Sun 10:54]--[2023-02-12 Sun 12:14] =>  1:20
@@ -53,17 +54,16 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [X] Unit test
   - [X] POST /sessions
     + [X] Unit test
-+ [ ] PackagesController [0/2]
-  - [ ] POST /packages
-    + [ ] Unit test
-  - [ ] POST /transactions/packages
-    + [ ] Unit test
-+ [ ] CardsController [0/3]
++ [ ] CardsController [0/5]
   - [ ] GET /cards
     + [ ] Unit test
   - [ ] GET /deck
     + [ ] Unit test
   - [ ] PUT /deck
+    + [ ] Unit test
+  - [ ] POST /packages
+    + [ ] Unit test
+  - [ ] POST /transactions/packages
     + [ ] Unit test
 + [ ] GameController [0/3]
   - [ ] GET /stats
@@ -81,22 +81,19 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [ ] Unit test
   - [ ] POST /tradings/{tradingdealid}
     + [ ] Unit test
-** TODO Services [0/5]
-+ [ ] UserService
-+ [ ] PackagesService
+** TODO Services [1/4]
++ [X] UserService
 + [ ] CardsService
 + [ ] GameService
 + [ ] TradingService
-** TODO Repositories [0/5]
-+ [ ] UserRepository
-+ [ ] PackagesRepository
+** TODO Repositories [1/4]
++ [X] UserRepository
 + [ ] CardsRepository
 + [ ] GameRepository
 + [ ] TradingRepository
-** TODO Model [0/5]
-+ [ ] UserModel
-+ [ ] PackagesModel
-+ [ ] CardsModel
+** TODO Model [2/4]
++ [X] UserModel
++ [X] CardsModel
 + [ ] GameModel
 + [ ] TradingModel
 ** TODO Synchronization [0/2]
@@ -104,8 +101,10 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
 https://stackoverflow.com/a/2120409
 :end:
 + [ ] Identify critical areas
+  - should this happen in the services?
 + [ ] Use synchronized keyword
-** TODO Unit Tests [1/1]
+** DONE Learn to use Unit Tests [1/1]
+CLOSED: [2023-02-18 Sat 14:03]
 :LOGBOOK:
 CLOCK: [2023-02-12 Sun 15:50]--[2023-02-12 Sun 15:56] =>  0:06
 CLOCK: [2023-02-11 Sat 10:09]--[2023-02-11 Sat 13:15] =>  3:06

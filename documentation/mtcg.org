@@ -38,6 +38,9 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
     the repositories
 ** TODO Controllers [1/4]
 :LOGBOOK:
+CLOCK: [2023-02-18 Sat 17:28]--[2023-02-18 Sat 19:56] =>  2:28
+CLOCK: [2023-02-18 Sat 16:31]--[2023-02-18 Sat 17:11] =>  0:40
+CLOCK: [2023-02-18 Sat 16:10]--[2023-02-18 Sat 16:18] =>  0:08
 CLOCK: [2023-02-18 Sat 12:37]--[2023-02-18 Sat 13:59] =>  1:22
 CLOCK: [2023-02-18 Sat 11:00]--[2023-02-18 Sat 12:10] =>  1:10
 CLOCK: [2023-02-12 Sun 15:57]--[2023-02-12 Sun 16:15] =>  0:18
@@ -61,7 +64,7 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [ ] Unit test
   - [ ] PUT /deck
     + [ ] Unit test
-  - [ ] POST /packages
+  - [-] POST /packages
     + [ ] Unit test
   - [ ] POST /transactions/packages
     + [ ] Unit test
@@ -83,12 +86,12 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [ ] Unit test
 ** TODO Services [1/4]
 + [X] UserService
-+ [ ] CardsService
++ [-] CardsService
 + [ ] GameService
 + [ ] TradingService
 ** TODO Repositories [1/4]
 + [X] UserRepository
-+ [ ] CardsRepository
++ [-] CardsRepository
 + [ ] GameRepository
 + [ ] TradingRepository
 ** TODO Model [2/4]

@@ -107,4 +107,38 @@ public class PostgresUserRepository implements UserRepository {
             throw new IllegalStateException("Failed to retrieve user profile.");
         }
     }
+
+    @Override
+    public void persistUserCoins(String token, int coins) throws IllegalStateException {
+        final String SET_USER_COINS = """
+                UPDATE users SET coins=? WHERE token=?
+                """;
+        try (PreparedStatement ps = connection.prepareStatement(SET_USER_COINS)) {
+            ps.setInt(1, coins);
+            ps.setString(2, token);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to update user coins.");
+        }
+    }
+
+    @Override
+    public int getUserCoins(String token) throws IllegalStateException {
+        final String GET_USER_COINS = """
+                SELECT coins FROM users WHERE token=?
+                """;
+        try (PreparedStatement ps = connection.prepareStatement(GET_USER_COINS)) {
+            ps.setString(1, token);
+            ps.execute();
+
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to retrieve user coins.");
+        }
+    }
 }

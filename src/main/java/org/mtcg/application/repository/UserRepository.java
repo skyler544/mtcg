@@ -9,4 +9,7 @@ public interface UserRepository {
 
     void persistUserProfile(String token, UserProfile userProfile) throws IllegalStateException;
     UserProfile findUserProfile(String token) throws IllegalStateException;
+
+    void persistUserCoins(String token, int coins) throws IllegalStateException;
+    int getUserCoins(String token) throws IllegalStateException;
 }

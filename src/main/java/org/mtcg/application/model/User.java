@@ -4,6 +4,7 @@ public class User {
     private String token;
     private Credentials credentials;
     private UserProfile userProfile;
+    private int coins = 20;
 
 	public User(Credentials credentials) {
         this.credentials = credentials;
@@ -33,5 +34,13 @@ public class User {
 
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
+	}
+
+	public int getCoins() {
+		return coins;
+	}
+
+	public void setCoins(int coins) {
+		this.coins = coins;
 	}
 }

@@ -85,7 +85,7 @@ public class PostgresUserRepository implements UserRepository {
             ps.setString(4, token);
             ps.execute();
         } catch (SQLException e) {
-            throw new IllegalStateException("Failed to update user profile.");
+            throw new IllegalStateException("Failed to update user profile.", e);
         }
     }
 
@@ -106,7 +106,7 @@ public class PostgresUserRepository implements UserRepository {
                 return null;
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Failed to retrieve user profile.");
+            throw new IllegalStateException("Failed to retrieve user profile.", e);
         }
     }
 
@@ -120,7 +120,7 @@ public class PostgresUserRepository implements UserRepository {
             ps.setString(2, token);
             ps.execute();
         } catch (SQLException e) {
-            throw new IllegalStateException("Failed to update user coins.");
+            throw new IllegalStateException("Failed to update user coins.", e);
         }
     }
 
@@ -140,7 +140,7 @@ public class PostgresUserRepository implements UserRepository {
                 return -1;
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("Failed to retrieve user coins.");
+            throw new IllegalStateException("Failed to retrieve user coins.", e);
         }
     }
 }

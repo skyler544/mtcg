@@ -78,7 +78,7 @@ public class RestUserController implements Controller {
             System.out.println(foo);
             response.setBody(foo);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("Internal server error.");
+            throw new IllegalStateException("Internal server error.", e);
         }
 
         return response;

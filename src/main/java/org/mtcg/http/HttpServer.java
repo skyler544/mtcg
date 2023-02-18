@@ -57,6 +57,10 @@ public class HttpServer {
                             response = new Response();
                             response.setBody(e.getMessage());
                             response.setHttpStatus(HttpStatus.BAD_REQUEST);
+                        } catch (ConflictException e) {
+                            response = new Response();
+                            response.setBody(e.getMessage());
+                            response.setHttpStatus(HttpStatus.CONFLICT);
                         } catch (ForbiddenException e) {
                             response = new Response();
                             response.setBody(e.getMessage());

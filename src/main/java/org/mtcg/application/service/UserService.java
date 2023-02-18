@@ -22,21 +22,21 @@ public class UserService {
         userRepository.saveCredentials(credentials);
     }
 
-    public String authenticateViaCredentials(Credentials credentials) throws IllegalStateException {
+    public String authenticateViaCredentials(Credentials credentials) throws IllegalStateException, UnauthorizedException {
         User user = findUserByUsername(credentials.getUsername());
         if (user.getCredentials().getPassword().equals(credentials.getPassword())) {
             return user.getToken();
         } else {
-            return "";
+            throw new UnauthorizedException("Authentication failure.");
         }
     }
 
     public boolean authenticate(String username, String token) throws IllegalStateException {
-        return findUserByUsername(username).equals(token);
+        return findUserByUsername(username).getToken().equals(token);
     }
 
     public boolean adminAuthenticate(String token) throws IllegalStateException {
-        return findUserByUsername("admin").equals(token);
+        return findUserByUsername("admin").getToken().equals(token);
     }
 
     public void saveUserProfile(String token, String username, UserProfile userProfile) throws UnauthorizedException {

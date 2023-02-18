@@ -123,7 +123,7 @@ public class RestUserControllerTest {
         final String username = "foo";
         final String password = "bar";
         Credentials credentials = new Credentials(username, password);
-        when(userService.findUserByUsername(username)).thenReturn(new User(credentials));
+        when(userService.authenticateViaCredentials(credentials)).thenReturn(token);
 
         // Act
         Response response = restUserController.login(credentials);
@@ -140,7 +140,7 @@ public class RestUserControllerTest {
         final String username = "foo";
         final String password = "bar";
         Credentials credentials = new Credentials(username, password);
-        when(userService.findUserByUsername(username))
+        when(userService.authenticateViaCredentials(credentials))
                 .thenThrow(new UnauthorizedException("Authentication failure."));
 
         // Act

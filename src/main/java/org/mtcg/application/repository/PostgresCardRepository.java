@@ -46,6 +46,29 @@ public class PostgresCardRepository implements CardRepository {
     }
 
     @Override
+    public Card findCardById(String id) throws IllegalStateException {
+        final String FIND_CARDS_BY_ID = """
+                SELECT id, name, damage, owner FROM cards WHERE id=?
+                            """;
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_CARDS_BY_ID)) {
+            ps.setString(1, id);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                return new Card(rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to query cards by id.", e);
+        }
+    }
+
+    @Override
     public List<Card> findCardsByOwner(String token) throws IllegalStateException {
         final String FIND_CARDS_BY_OWNER = """
                 SELECT id, name, damage, owner FROM cards WHERE owner=?

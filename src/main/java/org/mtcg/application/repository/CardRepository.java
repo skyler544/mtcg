@@ -6,7 +6,8 @@ import org.mtcg.application.model.Card;
 
 public interface CardRepository {
     void saveCard(Card card) throws IllegalStateException;
-    List<Card> findCardsByOwner(String token) throws IllegalStateException;
+    Card findCardById(String id) throws IllegalStateException;
 
+    List<Card> findCardsByOwner(String token) throws IllegalStateException;
     void saveCardOwner(String id, String token) throws IllegalStateException;
 }

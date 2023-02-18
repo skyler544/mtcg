@@ -16,17 +16,17 @@ public class UserService {
         return userRepository.findUserByUsername(username);
     }
 
-    public void persist(Credentials credentials) throws IllegalStateException {
-        userRepository.persist(credentials);
+    public void saveCredentials(Credentials credentials) throws IllegalStateException {
+        userRepository.saveCredentials(credentials);
     }
 
     public boolean authenticate(String username, String token) throws IllegalStateException {
         return findUserByUsername(username).equals(token);
     }
 
-    public void persistUserProfile(String token, String username, UserProfile userProfile) throws UnauthorizedException {
+    public void saveUserProfile(String token, String username, UserProfile userProfile) throws UnauthorizedException {
         if (authenticate(username, token)) {
-            userRepository.persistUserProfile(token, userProfile);
+            userRepository.saveUserProfile(token, userProfile);
         } else {
             throw new UnauthorizedException("Authentication failure.");
         }

@@ -40,7 +40,7 @@ public class RestUserController implements Controller {
         if (token != null) {
             throw new BadRequestException("User with username " + credentials.getUsername() + " already exists");
         } else {
-            userService.persist(credentials);
+            userService.saveCredentials(credentials);
         }
         Response response = new Response();
         response.setHttpStatus(HttpStatus.CREATED);
@@ -94,7 +94,7 @@ public class RestUserController implements Controller {
     }
 
     public Response updateProfile(String token, String username, UserProfile userProfile) {
-        userService.persistUserProfile(token, username, userProfile);
+        userService.saveUserProfile(token, username, userProfile);
 
         // if anything went wrong an exception will have been thrown from one of
         // the underlying layers, so we must have been successful and can now

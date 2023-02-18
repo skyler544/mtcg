@@ -34,7 +34,7 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public void persist(Credentials credentials) throws IllegalStateException {
+    public void saveCredentials(Credentials credentials) throws IllegalStateException {
         final String ADD_USER = """
                     INSERT INTO users (token, username, password) VALUES (?, ?, ?)
                 """;
@@ -72,7 +72,7 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public void persistUserProfile(String token, UserProfile userProfile) throws IllegalStateException {
+    public void saveUserProfile(String token, UserProfile userProfile) throws IllegalStateException {
         final String SET_USER_PROFILE = """
                 UPDATE users SET name=?, bio=?, image=? WHERE token=?
                 """;
@@ -109,7 +109,7 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
-    public void persistUserCoins(String token, int coins) throws IllegalStateException {
+    public void saveUserCoins(String token, int coins) throws IllegalStateException {
         final String SET_USER_COINS = """
                 UPDATE users SET coins=? WHERE token=?
                 """;

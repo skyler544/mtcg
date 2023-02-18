@@ -75,7 +75,7 @@ public class RestUserControllerTest {
         final String token = "token";
         final String username = "username";
         doThrow(new UnauthorizedException("Authentication failure."))
-                .when(userService).persistUserProfile(token, username, userProfile);
+                .when(userService).saveUserProfile(token, username, userProfile);
         // Act
         try {
             restUserController.updateProfile(token, username, userProfile);

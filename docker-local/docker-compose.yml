@@ -13,8 +13,8 @@ services:
       - 5432:5432
     volumes:
       - mtcg-db:/var/lib/postgresql/data
-  adminer_custom:
-    build: .
+  adminer:
+    image: adminer:4.8.1
     restart: always
     command: php -S 0.0.0.0:8080 -t /var/www/html
     ports:

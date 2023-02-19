@@ -10,11 +10,14 @@ import org.mtcg.application.service.UserService;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
+import org.mtcg.http.exception.BadRequestException;
 import org.mtcg.http.exception.ForbiddenException;
 import org.mtcg.http.exception.UnauthorizedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import javax.smartcardio.CardException;
 
 @ExtendWith(MockitoExtension.class)
 public class RestCardControllerTest {
@@ -104,6 +107,37 @@ public class RestCardControllerTest {
         } catch (UnauthorizedException e) {
             thrown = true;
         }
+        // Assert
+        assertTrue(thrown);
+    }
+
+    @Test
+    void testSetDeckSuccessfully() {
+        // Arrange
+        String[] result = {"foo", "boo", "bar", "baz"};
+        when(cardService.cardIdArray(null)).thenReturn(result);
+
+        // Act
+        Response response = restCardController.setDeck(requestContext);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+    }
+
+    @Test
+    void testSetDeckFailure() {
+        // Arrange
+        boolean thrown = false;
+        String[] result = {"foo", "bar", "baz"};
+        when(cardService.cardIdArray(null)).thenReturn(result);
+
+        // Act
+        try {
+            restCardController.setDeck(requestContext);
+        } catch (BadRequestException e) {
+            thrown = true;
+        }
+
         // Assert
         assertTrue(thrown);
     }

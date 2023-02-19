@@ -4,8 +4,8 @@ import org.mtcg.application.model.Credentials;
 import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.repository.UserRepository;
-import org.mtcg.http.ForbiddenException;
-import org.mtcg.http.UnauthorizedException;
+import org.mtcg.http.exception.ForbiddenException;
+import org.mtcg.http.exception.UnauthorizedException;
 
 public class UserService {
     private final UserRepository userRepository;

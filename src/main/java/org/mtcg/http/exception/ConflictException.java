@@ -1,4 +1,4 @@
-package org.mtcg.http;
+package org.mtcg.http.exception;
 
 public class ConflictException extends RuntimeException {
     public ConflictException(String message) {

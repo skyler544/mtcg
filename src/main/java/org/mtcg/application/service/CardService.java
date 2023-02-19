@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.mtcg.application.model.Card;
 import org.mtcg.application.repository.CardRepository;
-import org.mtcg.http.ConflictException;
+import org.mtcg.http.exception.ConflictException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

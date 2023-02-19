@@ -1,4 +1,4 @@
-package org.mtcg.http;
+package org.mtcg.http.exception;
 
 public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String message) {

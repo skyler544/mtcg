@@ -8,7 +8,7 @@ import org.mtcg.application.router.Route;
 import org.mtcg.application.router.RouteIdentifier;
 import org.mtcg.application.service.UserService;
 import org.mtcg.application.util.Pair;
-import org.mtcg.http.BadRequestException;
+import org.mtcg.http.exception.BadRequestException;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;

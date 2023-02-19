@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
+import org.mtcg.http.exception.BadRequestException;
+
 public class RequestContext {
 
     private static final String CONTENT_LENGTH_HEADER_NAME = "Content-Length";

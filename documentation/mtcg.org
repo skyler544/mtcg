@@ -57,15 +57,15 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [X] Unit test
   - [X] POST /sessions
     + [X] Unit test
-+ [ ] CardsController [0/5]
++ [-] CardsController [1/5]
   - [ ] GET /cards
     + [ ] Unit test
   - [ ] GET /deck
     + [ ] Unit test
   - [ ] PUT /deck
     + [ ] Unit test
-  - [-] POST /packages
-    + [ ] Unit test
+  - [X] POST /packages
+    + [X] Unit test
   - [ ] POST /transactions/packages
     + [ ] Unit test
 + [ ] GameController [0/3]
@@ -109,6 +109,7 @@ https://stackoverflow.com/a/2120409
 ** DONE Learn to use Unit Tests [1/1]
 CLOSED: [2023-02-18 Sat 14:03]
 :LOGBOOK:
+CLOCK: [2023-02-19 Sun 11:07]--[2023-02-19 Sun 11:38] =>  0:31
 CLOCK: [2023-02-12 Sun 15:50]--[2023-02-12 Sun 15:56] =>  0:06
 CLOCK: [2023-02-11 Sat 10:09]--[2023-02-11 Sat 13:15] =>  3:06
 CLOCK: [2023-02-06 Mon 18:37]--[2023-02-06 Mon 18:56] =>  0:19

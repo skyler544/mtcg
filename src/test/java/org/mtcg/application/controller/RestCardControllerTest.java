@@ -54,7 +54,6 @@ public class RestCardControllerTest {
     @Test
     void testAcquirePackageSuccessfully() {
         // Arrange
-        when(userService.authenticateToken(null)).thenReturn(true);
         when(userService.checkBalance(null)).thenReturn(20);
 
         // Act
@@ -68,7 +67,6 @@ public class RestCardControllerTest {
     void testAcquirePackageFailure() {
         // Arrange
         boolean thrown = false;
-        when(userService.authenticateToken(null)).thenReturn(true);
         when(userService.checkBalance(null)).thenReturn(0);
 
         // Act

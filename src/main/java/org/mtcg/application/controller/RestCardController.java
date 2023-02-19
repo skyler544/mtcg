@@ -38,16 +38,13 @@ public class RestCardController implements Controller {
 
     public Response acquirePackage(RequestContext requestContext) {
         String token = requestContext.getToken();
-        if (userService.authenticateToken(token)) {
-            if (userService.checkBalance(token) >= PACKAGE_PRICE) {
-                // will throw a NotFoundException if no cards are available
-                cardService.buyPackage(token);
-                userService.subtractUserCoins(token, PACKAGE_PRICE);
-            } else {
-                throw new ForbiddenException("Not enough coins.");
-            }
+        userService.authenticateToken(token);
+        if (userService.checkBalance(token) >= PACKAGE_PRICE) {
+            // will throw a NotFoundException if no cards are available
+            cardService.buyPackage(token);
+            userService.subtractUserCoins(token, PACKAGE_PRICE);
         } else {
-            throw new UnauthorizedException("Authentication failure.");
+            throw new ForbiddenException("Not enough coins.");
         }
         Response response = new Response();
         response.setHttpStatus(HttpStatus.OK);

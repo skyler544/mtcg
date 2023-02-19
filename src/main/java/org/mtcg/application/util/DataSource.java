@@ -1,4 +1,4 @@
-package org.mtcg.application.config;
+package org.mtcg.application.util;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

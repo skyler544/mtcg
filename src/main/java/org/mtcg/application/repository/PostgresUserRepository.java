@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.mtcg.application.config.DataSource;
+import org.mtcg.application.util.DataSource;
 
 public class PostgresUserRepository implements UserRepository {
     private static final Connection connection = DataSource.getInstance().getConnection();

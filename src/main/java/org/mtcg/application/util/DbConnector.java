@@ -1,4 +1,4 @@
-package org.mtcg.application.config;
+package org.mtcg.application.util;
 
 import java.sql.Connection;
 

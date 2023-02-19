@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mtcg.application.model.Card;
-import org.mtcg.application.config.DataSource;
+import org.mtcg.application.util.DataSource;
 
 public class PostgresCardRepository implements CardRepository {
     private static final Connection connection = DataSource.getInstance().getConnection();

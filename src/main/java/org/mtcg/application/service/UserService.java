@@ -5,6 +5,7 @@ import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.repository.UserRepository;
 import org.mtcg.http.exception.ForbiddenException;
+import org.mtcg.http.exception.NotFoundException;
 import org.mtcg.http.exception.UnauthorizedException;
 
 public class UserService {
@@ -58,7 +59,12 @@ public class UserService {
 
     public UserProfile findUserProfile(String token, String username) throws UnauthorizedException {
         if (authenticate(username, token)) {
-            return userRepository.findUserProfile(token);
+            UserProfile userProfile = userRepository.findUserProfile(token);
+            if (userProfile != null) {
+                return userProfile;
+            } else {
+                throw new NotFoundException("User not found.");
+            }
         } else {
             throw new UnauthorizedException("Authentication failure.");
         }

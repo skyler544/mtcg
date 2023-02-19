@@ -83,6 +83,7 @@ public class RestCardController implements Controller {
         }
 
         Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
         return response;
     }
 

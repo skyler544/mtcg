@@ -141,4 +141,54 @@ public class RestCardControllerTest {
         // Assert
         assertTrue(thrown);
     }
+
+    @Test
+    void testGetDeckSuccessfully() {
+        // Act
+        Response response = restCardController.getDeck(requestContext);
+        // Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+    }
+
+    @Test
+    void testGetDeckFailure() {
+        // Arrange
+        boolean thrown = false;
+        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).authenticateToken(null);
+
+        // Act
+        try {
+            restCardController.getDeck(requestContext);
+        } catch (UnauthorizedException e) {
+            thrown = true;
+        }
+
+        // Assert
+        assertTrue(thrown);
+    }
+
+    @Test
+    void testGetDeckPlainTextSuccessfully() {
+        // Act
+        Response response = restCardController.getDeckPlainText(requestContext);
+        // Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+    }
+
+    @Test
+    void testGetDeckPlainTextFailure() {
+        // Arrange
+        boolean thrown = false;
+        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).authenticateToken(null);
+
+        // Act
+        try {
+            restCardController.getDeckPlainText(requestContext);
+        } catch (UnauthorizedException e) {
+            thrown = true;
+        }
+
+        // Assert
+        assertTrue(thrown);
+    }
 }

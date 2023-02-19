@@ -99,4 +99,22 @@ public class CardService {
     public void addCardToDeck(String id) {
         cardRepository.addCardToDeck(id);
     }
+
+    public String getUserDeck(String token) {
+        try {
+            return om.writeValueAsString(cardRepository.getUserDeck(token));
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Internal server error.", e);
+        }
+    }
+
+    public String getUserDeckPlainText(String token) {
+        List<Card> deck = cardRepository.getUserDeck(token);
+        StringBuilder result = new StringBuilder();
+        for(var card : deck) {
+            result.append("Name: " + card.getName() + "\n");
+            result.append("Damage: " + card.getDamage() + "\n\n");
+        }
+        return result.toString();
+    }
 }

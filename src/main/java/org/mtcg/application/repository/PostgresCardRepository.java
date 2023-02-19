@@ -189,7 +189,7 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public List<Card> getUserDeck(String token) throws IllegalStateException {
         final String GET_CARDS_IN_DECK = """
-                SELECT id, name, damage, owner, package_id, in_deck cards WHERE in_deck=1 AND WHERE owner=?
+                SELECT id, name, damage, owner, package_id, in_deck FROM cards WHERE in_deck=1 AND owner=?
                     """;
 
         try (PreparedStatement ps = connection.prepareStatement(GET_CARDS_IN_DECK)) {

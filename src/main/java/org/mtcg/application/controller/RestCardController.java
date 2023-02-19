@@ -87,6 +87,26 @@ public class RestCardController implements Controller {
         return response;
     }
 
+    public Response getDeck(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        response.setBody(cardService.getUserDeck(token));
+        return response;
+    }
+
+    public Response getDeckPlainText(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        response.setBody(cardService.getUserDeckPlainText(token));
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> cardRoutes = new ArrayList<>();
@@ -106,6 +126,14 @@ public class RestCardController implements Controller {
         cardRoutes.add(new Pair<>(
                 routeIdentifier("/deck", "PUT"),
                 this::setDeck));
+
+        cardRoutes.add(new Pair<>(
+                routeIdentifier("/deck", "GET"),
+                this::getDeck));
+
+        cardRoutes.add(new Pair<>(
+                routeIdentifier("/deck?format=plain", "GET"),
+                this::getDeckPlainText));
 
         return cardRoutes;
     }

@@ -38,6 +38,9 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
     the repositories
 ** TODO Controllers [1/4]
 :LOGBOOK:
+CLOCK: [2023-02-19 Sun 16:30]--[2023-02-19 Sun 17:21] =>  0:51
+CLOCK: [2023-02-19 Sun 13:10]--[2023-02-19 Sun 16:00] =>  2:50
+CLOCK: [2023-02-19 Sun 11:38]--[2023-02-19 Sun 12:35] =>  0:57
 CLOCK: [2023-02-18 Sat 17:28]--[2023-02-18 Sat 19:56] =>  2:28
 CLOCK: [2023-02-18 Sat 16:31]--[2023-02-18 Sat 17:11] =>  0:40
 CLOCK: [2023-02-18 Sat 16:10]--[2023-02-18 Sat 16:18] =>  0:08
@@ -57,7 +60,7 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [X] Unit test
   - [X] POST /sessions
     + [X] Unit test
-+ [-] CardsController [1/5]
++ [-] CardsController [2/5]
   - [ ] GET /cards
     + [ ] Unit test
   - [ ] GET /deck
@@ -66,8 +69,8 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [ ] Unit test
   - [X] POST /packages
     + [X] Unit test
-  - [ ] POST /transactions/packages
-    + [ ] Unit test
+  - [X] POST /transactions/packages
+    + [X] Unit test
 + [ ] GameController [0/3]
   - [ ] GET /stats
     + [ ] Unit test
@@ -109,6 +112,7 @@ https://stackoverflow.com/a/2120409
 ** DONE Learn to use Unit Tests [1/1]
 CLOSED: [2023-02-18 Sat 14:03]
 :LOGBOOK:
+CLOCK: [2023-02-19 Sun 17:25]--[2023-02-19 Sun 17:33] =>  0:08
 CLOCK: [2023-02-19 Sun 11:07]--[2023-02-19 Sun 11:38] =>  0:31
 CLOCK: [2023-02-12 Sun 15:50]--[2023-02-12 Sun 15:56] =>  0:06
 CLOCK: [2023-02-11 Sat 10:09]--[2023-02-11 Sat 13:15] =>  3:06

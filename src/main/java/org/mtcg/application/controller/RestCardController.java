@@ -9,6 +9,7 @@ import org.mtcg.application.util.Pair;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
+import org.mtcg.http.exception.BadRequestException;
 import org.mtcg.http.exception.ForbiddenException;
 
 import java.util.ArrayList;
@@ -62,6 +63,29 @@ public class RestCardController implements Controller {
         return response;
     }
 
+    public Response setDeck(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+        String[] cards = cardService.cardIdArray(requestContext.getBody());
+
+        if (cards.length != 4) {
+            throw new BadRequestException("The deck must consist of 4 cards.");
+        }
+
+        for (var id : cards) {
+            cardService.doesUserOwnCard(id, token);
+        }
+
+        cardService.clearUserDeck(token);
+
+        for (var id : cards) {
+            cardService.addCardToDeck(id);
+        }
+
+        Response response = new Response();
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> cardRoutes = new ArrayList<>();
@@ -77,6 +101,10 @@ public class RestCardController implements Controller {
         cardRoutes.add(new Pair<>(
                 routeIdentifier("/cards", "GET"),
                 this::getCards));
+
+        cardRoutes.add(new Pair<>(
+                routeIdentifier("/deck", "PUT"),
+                this::setDeck));
 
         return cardRoutes;
     }

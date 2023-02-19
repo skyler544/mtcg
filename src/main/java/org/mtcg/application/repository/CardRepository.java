@@ -15,4 +15,8 @@ public interface CardRepository {
     Set<String> getAvailablePackages() throws IllegalStateException;
     List<Card> retrievePackage(String packageId) throws IllegalStateException;
     void setPackageOwner(String packageId, String token) throws IllegalStateException;
+
+    void addCardToDeck(String id) throws IllegalStateException;
+    List<Card> getUserDeck(String token) throws IllegalStateException;
+    void clearUserDeck(String token) throws IllegalStateException;
 }

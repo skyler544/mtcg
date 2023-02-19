@@ -35,6 +35,10 @@ public class UserService {
         }
     }
 
+    public boolean authenticateToken(String token) throws IllegalStateException {
+        return findUserByToken(token) != null;
+    }
+
     public boolean authenticate(String username, String token) throws IllegalStateException {
         return findUserByUsername(username).getToken().equals(token);
     }

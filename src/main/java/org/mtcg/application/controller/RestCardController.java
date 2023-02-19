@@ -29,11 +29,8 @@ public class RestCardController implements Controller {
     }
 
     public Response addPackage(RequestContext requestContext) {
-        if (userService.adminAuthenticate(requestContext.getToken())) {
-            cardService.addPackage(requestContext.getBody());
-        } else {
-            throw new UnauthorizedException("Authentication failure.");
-        }
+        userService.adminAuthenticate(requestContext.getToken());
+        cardService.addPackage(requestContext.getBody());
         Response response = new Response();
         response.setHttpStatus(HttpStatus.CREATED);
         return response;

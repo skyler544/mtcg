@@ -30,8 +30,6 @@ public class RestCardControllerTest {
 
     @Test
     void testAddPackageSuccessfully() {
-        // Arrange
-        when(userService.adminAuthenticate(null)).thenReturn(true);
         // Act
         Response response = restCardController.addPackage(requestContext);
         // Assert
@@ -42,7 +40,7 @@ public class RestCardControllerTest {
     void testAddPackageFailure() {
         // Arrange
         boolean thrown = false;
-        when(userService.adminAuthenticate(null)).thenThrow(new UnauthorizedException("Authentication failure."));
+        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).adminAuthenticate(null);
         // Act
         try {
             restCardController.addPackage(requestContext);

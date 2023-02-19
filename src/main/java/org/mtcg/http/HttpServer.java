@@ -58,6 +58,10 @@ public class HttpServer {
                             response = new Response();
                             response.setBody(e.getMessage());
                             response.setHttpStatus(HttpStatus.BAD_REQUEST);
+                        } catch (NotFoundException e) {
+                            response = new Response();
+                            response.setBody(e.getMessage());
+                            response.setHttpStatus(HttpStatus.NOT_FOUND);
                         } catch (ConflictException e) {
                             response = new Response();
                             response.setBody(e.getMessage());

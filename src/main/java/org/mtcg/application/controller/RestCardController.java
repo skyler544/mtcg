@@ -10,7 +10,6 @@ import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
 import org.mtcg.http.exception.ForbiddenException;
-import org.mtcg.http.exception.UnauthorizedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +50,18 @@ public class RestCardController implements Controller {
         return response;
     }
 
+    public Response getCards(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+
+        String cards = cardService.returnUserCards(token);
+
+        Response response = new Response();
+        response.setHttpStatus(cards.equals("[]") ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+        response.setBody(cards);
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> cardRoutes = new ArrayList<>();
@@ -62,6 +73,10 @@ public class RestCardController implements Controller {
         cardRoutes.add(new Pair<>(
                 routeIdentifier("/transactions/packages", "POST"),
                 this::acquirePackage));
+
+        cardRoutes.add(new Pair<>(
+                routeIdentifier("/cards", "GET"),
+                this::getCards));
 
         return cardRoutes;
     }

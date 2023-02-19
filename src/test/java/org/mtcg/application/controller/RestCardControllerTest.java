@@ -79,4 +79,32 @@ public class RestCardControllerTest {
         // Assert
         assertTrue(thrown);
     }
+
+    @Test
+    void testGetUserCardsSuccessfully() {
+        // Arrange
+        when(cardService.returnUserCards(null)).thenReturn("foo");
+
+        // Act
+        Response response = restCardController.getCards(requestContext);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+    }
+
+    @Test
+    void testGetUserCardsFailure() {
+        // Arrange
+        boolean thrown = false;
+        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).authenticateToken(null);
+
+        // Act
+        try {
+            restCardController.getCards(requestContext);
+        } catch (UnauthorizedException e) {
+            thrown = true;
+        }
+        // Assert
+        assertTrue(thrown);
+    }
 }

@@ -51,4 +51,12 @@ public class CardService {
             throw new NotFoundException("No packages available.");
         }
     }
+
+    public String returnUserCards(String token) {
+        try {
+            return om.writeValueAsString(cardRepository.findCardsByOwner(token));
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException("Internal server error.", e);
+        }
+    }
 }

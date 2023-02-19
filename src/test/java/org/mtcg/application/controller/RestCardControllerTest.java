@@ -10,6 +10,7 @@ import org.mtcg.application.service.UserService;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
+import org.mtcg.http.exception.ForbiddenException;
 import org.mtcg.http.exception.UnauthorizedException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,6 +49,37 @@ public class RestCardControllerTest {
         } catch (UnauthorizedException e) {
             thrown = true;
         }
+        // Assert
+        assertTrue(thrown);
+    }
+
+    @Test
+    void testAcquirePackageSuccessfully() {
+        // Arrange
+        when(userService.authenticateToken(null)).thenReturn(true);
+        when(userService.checkBalance(null)).thenReturn(20);
+
+        // Act
+        Response response = restCardController.acquirePackage(requestContext);
+
+        //Assert
+        assertEquals(HttpStatus.OK, response.getHttpStatus());
+    }
+
+    @Test
+    void testAcquirePackageFailure() {
+        // Arrange
+        boolean thrown = false;
+        when(userService.authenticateToken(null)).thenReturn(true);
+        when(userService.checkBalance(null)).thenReturn(0);
+
+        // Act
+        try {
+            restCardController.acquirePackage(requestContext);
+        } catch (ForbiddenException e) {
+            thrown = true;
+        }
+
         // Assert
         assertTrue(thrown);
     }

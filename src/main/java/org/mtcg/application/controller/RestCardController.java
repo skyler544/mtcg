@@ -9,6 +9,7 @@ import org.mtcg.application.util.Pair;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
+import org.mtcg.http.exception.ForbiddenException;
 import org.mtcg.http.exception.UnauthorizedException;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class RestCardController implements Controller {
 
     private final CardService cardService;
     private final UserService userService;
+    private final int PACKAGE_PRICE = 5;
 
     public RestCardController(UserService userService, CardService cardService) {
         this.userService = userService;
@@ -38,8 +40,21 @@ public class RestCardController implements Controller {
     }
 
     public Response acquirePackage(RequestContext requestContext) {
-        // TODO: implement me
-        return new Response();
+        String token = requestContext.getToken();
+        if (userService.authenticateToken(token)) {
+            if (userService.checkBalance(token) >= PACKAGE_PRICE) {
+                // will throw a NotFoundException if no cards are available
+                cardService.buyPackage(token);
+                userService.subtractUserCoins(token, PACKAGE_PRICE);
+            } else {
+                throw new ForbiddenException("Not enough coins.");
+            }
+        } else {
+            throw new UnauthorizedException("Authentication failure.");
+        }
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        return response;
     }
 
     @Override

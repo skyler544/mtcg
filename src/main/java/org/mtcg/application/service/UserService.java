@@ -26,7 +26,8 @@ public class UserService {
         userRepository.saveCredentials(credentials);
     }
 
-    public String authenticateViaCredentials(Credentials credentials) throws IllegalStateException, UnauthorizedException {
+    public String authenticateViaCredentials(Credentials credentials)
+            throws IllegalStateException, UnauthorizedException {
         User user = findUserByUsername(credentials.getUsername());
         if (user.getCredentials().getPassword().equals(credentials.getPassword())) {
             return user.getToken();
@@ -73,19 +74,11 @@ public class UserService {
         }
     }
 
-    // the normal user will be allowed to do this, because they're the ones who buy
-    // packages
-    public void subtractUserCoins(String token, String username, int price)
-            throws UnauthorizedException, ForbiddenException {
-        if (authenticate(username, token)) {
-            int balance = userRepository.getUserCoins(token) - price;
-            if (balance < 0) {
-                throw new ForbiddenException("Not enough coins.");
-            } else {
-                userRepository.saveUserCoins(token, balance);
-            }
-        } else {
-            throw new UnauthorizedException("Authentication failure.");
-        }
+    public int checkBalance(String token) {
+        return userRepository.getUserCoins(token);
+    }
+
+    public void subtractUserCoins(String token, int price) {
+        userRepository.saveUserCoins(token, checkBalance(token) - price);
     }
 }

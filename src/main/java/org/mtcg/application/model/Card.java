@@ -12,8 +12,10 @@ public class Card {
     private int damage;
     @JsonProperty("Owner")
     private String owner;
+    @JsonProperty("PackageId")
+    private String packageId;
 
-    public Card() {}
+	public Card() {}
 
     public Card(String id, String name, int damage) {
         this.id = id;
@@ -21,11 +23,12 @@ public class Card {
         this.damage = damage;
     }
 
-    public Card(String id, String name, int damage, String owner) {
+    public Card(String id, String name, int damage, String owner, String packageId) {
         this.id = id;
         this.name = name;
         this.damage = damage;
         this.owner = owner;
+        this.packageId = packageId;
     }
 
     public String getId() {
@@ -47,4 +50,12 @@ public class Card {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
+    public String getPackageId() {
+		return packageId;
+	}
+
+	public void setPackageId(String packageId) {
+		this.packageId = packageId;
+	}
 }

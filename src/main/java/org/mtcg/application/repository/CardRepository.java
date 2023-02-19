@@ -1,6 +1,7 @@
 package org.mtcg.application.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import org.mtcg.application.model.Card;
 
@@ -10,4 +11,8 @@ public interface CardRepository {
 
     List<Card> findCardsByOwner(String token) throws IllegalStateException;
     void saveCardOwner(String id, String token) throws IllegalStateException;
+
+    Set<String> getAvailablePackages() throws IllegalStateException;
+    List<Card> retrievePackage(String packageId) throws IllegalStateException;
+    void setPackageOwner(String packageId, String token) throws IllegalStateException;
 }

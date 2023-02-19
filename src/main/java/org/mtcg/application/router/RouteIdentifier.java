@@ -26,6 +26,10 @@ public class RouteIdentifier {
         return path;
     }
 
+    public String getPathArgument() {
+        return pathArgument;
+    }
+
     public String getHttpVerb() {
         return httpVerb;
     }

@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.mtcg.application.model.Card;
 import org.mtcg.application.util.DataSource;
@@ -18,7 +20,8 @@ public class PostgresCardRepository implements CardRepository {
                     id TEXT PRIMARY KEY,
                     name TEXT NOT NULL,
                     damage INTEGER NOT NULL,
-                    owner TEXT
+                    owner TEXT,
+                    package_id TEXT NOT NULL
                 );
             """;
 
@@ -33,12 +36,13 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public void saveCard(Card card) throws IllegalStateException {
         final String ADD_CARD = """
-                INSERT INTO cards (id, name, damage) VALUES (?, ?, ?)
-                        """;
+                INSERT INTO cards (id, name, damage, package_id) VALUES (?, ?, ?, ?)
+                            """;
         try (PreparedStatement ps = connection.prepareStatement(ADD_CARD)) {
             ps.setString(1, card.getId());
             ps.setString(2, card.getName());
             ps.setInt(3, card.getDamage());
+            ps.setString(4, card.getPackageId());
             ps.execute();
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to save card.", e);
@@ -48,8 +52,8 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public Card findCardById(String id) throws IllegalStateException {
         final String FIND_CARDS_BY_ID = """
-                SELECT id, name, damage, owner FROM cards WHERE id=?
-                            """;
+                SELECT id, name, damage, owner, package_id FROM cards WHERE id=?
+                                """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_CARDS_BY_ID)) {
             ps.setString(1, id);
@@ -59,7 +63,8 @@ public class PostgresCardRepository implements CardRepository {
                 return new Card(rs.getString(1),
                         rs.getString(2),
                         rs.getInt(3),
-                        rs.getString(4));
+                        rs.getString(4),
+                        rs.getString(5));
             } else {
                 return null;
             }
@@ -71,8 +76,8 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public List<Card> findCardsByOwner(String token) throws IllegalStateException {
         final String FIND_CARDS_BY_OWNER = """
-                SELECT id, name, damage, owner FROM cards WHERE owner=?
-                            """;
+                SELECT id, name, damage, owner, package_id FROM cards WHERE owner=?
+                                """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_CARDS_BY_OWNER)) {
             ps.setString(1, token);
@@ -83,7 +88,8 @@ public class PostgresCardRepository implements CardRepository {
                 stack.add(new Card(rs.getString(1),
                         rs.getString(2),
                         rs.getInt(3),
-                        rs.getString(4)));
+                        rs.getString(4),
+                        rs.getString(5)));
             }
             return stack;
         } catch (SQLException e) {
@@ -92,16 +98,71 @@ public class PostgresCardRepository implements CardRepository {
     }
 
     @Override
+    public List<Card> retrievePackage(String packageId) throws IllegalStateException {
+        final String FIND_CARDS_BY_PACKAGE_ID = """
+                SELECT id, name, damage, owner, package_id FROM cards WHERE package_id=?
+                                """;
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_CARDS_BY_PACKAGE_ID)) {
+            ps.setString(1, packageId);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            List<Card> pkg = new ArrayList<>();
+            while (rs.next()) {
+                pkg.add(new Card(rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)));
+            }
+            return pkg;
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to query for packages.", e);
+        }
+    }
+
+    @Override
     public void saveCardOwner(String id, String token) throws IllegalStateException {
         final String SET_CARD_USER = """
                 UPDATE cards SET owner=? WHERE id=?
                 """;
+
         try (PreparedStatement ps = connection.prepareStatement(SET_CARD_USER)) {
             ps.setString(1, token);
             ps.setString(2, id);
             ps.execute();
         } catch (SQLException e) {
-            throw new IllegalStateException("Failed to update user coins.", e);
+            throw new IllegalStateException("Failed to set card owner.", e);
+        }
+    }
+
+    @Override
+    public Set<String> getAvailablePackages() throws IllegalStateException {
+        final String FIND_AVAILABLE_PACKAGES = """
+                    SELECT package_id FROM cards WHERE owner IS NULL
+                """;
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_AVAILABLE_PACKAGES)) {
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            Set<String> packages = new HashSet<>();
+            while (rs.next()) {
+                packages.add(rs.getString(1));
+            }
+            for (var pkg : packages) {
+                System.out.println(pkg);
+            }
+            return packages;
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to query packages.", e);
+        }
+    }
+
+    @Override
+    public void setPackageOwner(String packageId, String token) throws IllegalStateException {
+        List<Card> pkg = retrievePackage(packageId);
+        for (var card : pkg) {
+            saveCardOwner(card.getId(), token);
         }
     }
 }

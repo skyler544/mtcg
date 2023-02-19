@@ -18,6 +18,10 @@ public class UserService {
         return userRepository.findUserByUsername(username);
     }
 
+    public User findUserByToken(String token) throws IllegalStateException {
+        return userRepository.findUserByToken(token);
+    }
+
     public void saveCredentials(Credentials credentials) throws IllegalStateException {
         userRepository.saveCredentials(credentials);
     }

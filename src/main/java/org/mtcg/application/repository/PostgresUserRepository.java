@@ -73,6 +73,27 @@ public class PostgresUserRepository implements UserRepository {
     }
 
     @Override
+    public User findUserByToken(String token) throws IllegalStateException {
+        final String FIND_USER = """
+                SELECT username, password FROM users WHERE token=?
+                            """;
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_USER)) {
+            ps.setString(1, token);
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            if (rs.next()) {
+                return new User(new Credentials(rs.getString(1), rs.getString(2)));
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to query by username.", e);
+        }
+    }
+
+    @Override
     public void saveUserProfile(String token, UserProfile userProfile) throws IllegalStateException {
         final String SET_USER_PROFILE = """
                 UPDATE users SET name=?, bio=?, image=? WHERE token=?

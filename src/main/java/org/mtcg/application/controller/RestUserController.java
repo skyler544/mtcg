@@ -1,7 +1,6 @@
 package org.mtcg.application.controller;
 
 import org.mtcg.application.model.Credentials;
-import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.router.Controller;
 import org.mtcg.application.router.Route;

@@ -38,6 +38,9 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
     the repositories
 ** TODO Controllers [2/4]
 :LOGBOOK:
+CLOCK: [2023-02-21 Tue 16:04]--[2023-02-21 Tue 18:46] =>  2:42
+CLOCK: [2023-02-21 Tue 14:42]--[2023-02-21 Tue 15:56] =>  1:14
+CLOCK: [2023-02-21 Tue 08:34]--[2023-02-21 Tue 12:01] =>  3:27
 CLOCK: [2023-02-19 Sun 23:00]--[2023-02-19 Sun 23:37] =>  0:37
 CLOCK: [2023-02-19 Sun 19:10]--[2023-02-19 Sun 21:19] =>  2:09
 CLOCK: [2023-02-19 Sun 18:14]--[2023-02-19 Sun 18:42] =>  0:28
@@ -75,12 +78,12 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [X] Unit test
   - [X] POST /transactions/packages
     + [X] Unit test
-+ [ ] TradingController [3/4]
++ [X] TradingController [4/4]
   - [X] GET /tradings
     + [ ] Unit test
   - [X] POST /tradings
     + [ ] Unit test
-  - [ ] DELETE /tradings/{tradingdealid}
+  - [X] DELETE /tradings/{tradingdealid}
     + [ ] Unit test
   - [X] POST /tradings/{tradingdealid}
     + [ ] Unit test
@@ -91,10 +94,10 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [ ] Unit test
   - [ ] POST /battles
     + [ ] Unit test
-** TODO Services [2/4]
+** TODO Services [3/4]
 + [X] UserService
 + [X] CardsService
-+ [ ] TradingService
++ [X] TradingService
 + [ ] GameService
 ** TODO Repositories [3/4]
 + [X] UserRepository

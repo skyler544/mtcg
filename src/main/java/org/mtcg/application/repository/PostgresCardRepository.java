@@ -22,7 +22,10 @@ public class PostgresCardRepository implements CardRepository {
                     damage INTEGER NOT NULL,
                     owner TEXT,
                     package_id TEXT NOT NULL,
-                    in_deck int NOT NULL
+                    in_deck int NOT NULL,
+
+                    CONSTRAINT fk_user_token FOREIGN KEY(owner)
+                    REFERENCES users(token)
                 );
             """;
 

@@ -43,7 +43,8 @@ public class UserService {
     }
 
     public void authenticate(String username, String token) throws IllegalStateException, UnauthorizedException {
-        if (!findUserByUsername(username).getToken().equals(token)) {
+        User user = findUserByUsername(username);
+        if (user == null || !user.getToken().equals(token)) {
             throw new UnauthorizedException("Authentication failure.");
         }
     }
@@ -62,11 +63,10 @@ public class UserService {
     public UserProfile findUserProfile(String token, String username) throws UnauthorizedException, NotFoundException {
         authenticate(username, token);
         UserProfile userProfile = userRepository.findUserProfile(token);
-        if (userProfile != null) {
-            return userProfile;
-        } else {
+        if (userProfile == null) {
             throw new NotFoundException("User not found.");
         }
+        return userProfile;
     }
 
     // this should only be done by the admin, so we expect the admin's token here

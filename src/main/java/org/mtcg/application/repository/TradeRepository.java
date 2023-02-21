@@ -5,7 +5,7 @@ import java.util.List;
 import org.mtcg.application.model.Trade;
 
 public interface TradeRepository {
-    List<String> getCurrentTradings();
+    List<Trade> getCurrentTradings();
     Trade getTradeById(String id);
 
     void postTrade(Trade trade);

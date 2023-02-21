@@ -35,19 +35,22 @@ public class PostgresTradeRepository implements TradeRepository {
     }
 
     @Override
-    public List<String> getCurrentTradings() {
+    public List<Trade> getCurrentTradings() {
         final String GET_TRADES = """
-                SELECT id FROM trades
+            SELECT id, card_id, type, damage FROM trades
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(GET_TRADES)) {
             ps.execute();
 
             ResultSet rs = ps.getResultSet();
-            List<String> trades = new ArrayList<>();
+            List<Trade> trades = new ArrayList<>();
 
             while (rs.next()) {
-                trades.add(rs.getString(1));
+                trades.add(new Trade(rs.getString(1),
+                           rs.getString(2),
+                           rs.getString(3),
+                           rs.getInt(4)));
             }
             return trades;
         } catch (SQLException e) {

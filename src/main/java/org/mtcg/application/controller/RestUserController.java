@@ -71,15 +71,13 @@ public class RestUserController implements Controller {
         UserProfile userProfile = userService.findUserProfile(token, username);
 
         Response response = new Response();
-        response.setHttpStatus(HttpStatus.OK);
         try {
-            String foo = om.writeValueAsString(userProfile);
-            System.out.println(foo);
-            response.setBody(foo);
+            response.setBody(om.writeValueAsString(userProfile));
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Internal server error.", e);
         }
 
+        response.setHttpStatus(HttpStatus.OK);
         return response;
     }
 

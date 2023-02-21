@@ -35,6 +35,23 @@ public class RestTradeController implements Controller {
         return response;
     }
 
+    public Response getTradings(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+
+        Response response = new Response();
+
+        String tradings = tradeService.getCurrentTradings();
+
+        if (tradings.isEmpty()) {
+            response.setHttpStatus(HttpStatus.NO_CONTENT);
+        } else {
+            response.setHttpStatus(HttpStatus.OK);
+            response.setBody(tradings);
+        }
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> tradeRoutes = new ArrayList<>();
@@ -42,6 +59,10 @@ public class RestTradeController implements Controller {
         tradeRoutes.add(new Pair<>(
                 routeIdentifier("/tradings", "POST"),
                 this::postTrade));
+
+        tradeRoutes.add(new Pair<>(
+                routeIdentifier("/tradings", "GET"),
+                this::getTradings));
 
         return tradeRoutes;
     }

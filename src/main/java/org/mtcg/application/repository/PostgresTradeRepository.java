@@ -37,8 +37,8 @@ public class PostgresTradeRepository implements TradeRepository {
     @Override
     public List<Trade> getCurrentTradings() {
         final String GET_TRADES = """
-            SELECT id, card_id, type, damage FROM trades
-                """;
+                SELECT id, card_id, type, damage FROM trades
+                    """;
 
         try (PreparedStatement ps = connection.prepareStatement(GET_TRADES)) {
             ps.execute();
@@ -48,9 +48,9 @@ public class PostgresTradeRepository implements TradeRepository {
 
             while (rs.next()) {
                 trades.add(new Trade(rs.getString(1),
-                           rs.getString(2),
-                           rs.getString(3),
-                           rs.getInt(4)));
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)));
             }
             return trades;
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class PostgresTradeRepository implements TradeRepository {
     @Override
     public Trade getTradeById(String id) {
         final String GET_TRADE_BY_ID = """
-                SELECT id, card_id, type, damage FROM trades where id=?
+                SELECT id, card_id, type, damage FROM trades WHERE id=?
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(GET_TRADE_BY_ID)) {
@@ -93,6 +93,20 @@ public class PostgresTradeRepository implements TradeRepository {
             ps.setString(2, trade.getCardId());
             ps.setString(3, trade.getType());
             ps.setInt(4, trade.getDamage());
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to save trade.", e);
+        }
+    }
+
+    @Override
+    public void deleteTrade(String id) {
+        final String DELETE_TRADE = """
+                DELETE FROM trades WHERE id=?
+                                """;
+
+        try (PreparedStatement ps = connection.prepareStatement(DELETE_TRADE)) {
+            ps.setString(1, id);
             ps.execute();
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to save trade.", e);

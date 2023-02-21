@@ -1,5 +1,6 @@
 package org.mtcg.application.controller;
 
+import org.mtcg.application.model.Trade;
 import org.mtcg.application.router.Controller;
 import org.mtcg.application.router.Route;
 import org.mtcg.application.router.RouteIdentifier;
@@ -9,6 +10,7 @@ import org.mtcg.application.util.Pair;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
+import org.mtcg.http.exception.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,19 @@ public class RestTradeController implements Controller {
         return response;
     }
 
+    public Response attemptTrade(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+        String tradeId = requestContext.getPath().split("/")[2];
+        String offeredCardId = requestContext.getBody().replaceAll("\"", "");
+
+        tradeService.trade(tradeId, offeredCardId, token);
+
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> tradeRoutes = new ArrayList<>();
@@ -63,6 +78,10 @@ public class RestTradeController implements Controller {
         tradeRoutes.add(new Pair<>(
                 routeIdentifier("/tradings", "GET"),
                 this::getTradings));
+
+        tradeRoutes.add(new Pair<>(
+                routeIdentifier("/tradings/{tradingdealid}", "POST"),
+                this::attemptTrade));
 
         return tradeRoutes;
     }

@@ -14,3 +14,6 @@ the project than the `mvn` commands.
   5. Running `make curl-script` will start the curl test script.
   6. Running `make clean` will remove build artifacts.
   
+
+# Clean up tables between runs
+DROP TABLE IF EXISTS users, cards, trades, battles;

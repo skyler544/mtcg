@@ -9,4 +9,5 @@ public interface TradeRepository {
     Trade getTradeById(String id);
 
     void postTrade(Trade trade);
+    void deleteTrade(String id);
 }

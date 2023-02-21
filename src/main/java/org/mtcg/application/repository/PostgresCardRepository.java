@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.mtcg.application.model.Card;
 import org.mtcg.application.util.DataSource;
@@ -145,7 +143,7 @@ public class PostgresCardRepository implements CardRepository {
     }
 
     @Override
-    public Set<String> getAvailablePackages() throws IllegalStateException {
+    public List<String> getAvailablePackages() throws IllegalStateException {
         final String FIND_AVAILABLE_PACKAGES = """
                     SELECT package_id FROM cards WHERE owner IS NULL
                 """;
@@ -153,7 +151,7 @@ public class PostgresCardRepository implements CardRepository {
         try (PreparedStatement ps = connection.prepareStatement(FIND_AVAILABLE_PACKAGES)) {
             ps.execute();
             ResultSet rs = ps.getResultSet();
-            Set<String> packages = new HashSet<>();
+            List<String> packages = new ArrayList<>();
             while (rs.next()) {
                 packages.add(rs.getString(1));
             }

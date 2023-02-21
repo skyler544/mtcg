@@ -62,12 +62,16 @@ public class TradeService {
         }
     }
 
-    public void trade(String tradeId, String offeredCardId, String token) {
+    public Trade doesTradeExist(String tradeId) {
         Trade trade = findTradeById(tradeId);
-
         if (trade == null) {
             throw new NotFoundException("The provided deal ID was not found.");
         }
+        return trade;
+    }
+
+    public void trade(String tradeId, String offeredCardId, String token) {
+        Trade trade = doesTradeExist(tradeId);
 
         Card offeredCard = cardRepository.findCardById(offeredCardId);
         Card cardFromTrade = cardRepository.findCardById(trade.getCardId());
@@ -107,6 +111,16 @@ public class TradeService {
 
         cardRepository.saveCardOwner(offeredCard.getId(), cardFromTradeOwner);
         cardRepository.saveCardOwner(cardFromTrade.getId(), offeredCardOwner);
+
+        tradeRepository.deleteTrade(tradeId);
+    }
+
+    public void deleteTrade(String tradeId, String token) {
+        Trade trade = doesTradeExist(tradeId);
+
+        if (!cardRepository.findCardById(trade.getCardId()).getOwner().equals(token)) {
+            throw new ForbiddenException("You may not delete trades you do not own.");
+        }
 
         tradeRepository.deleteTrade(tradeId);
     }

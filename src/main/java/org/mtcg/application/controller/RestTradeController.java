@@ -67,6 +67,17 @@ public class RestTradeController implements Controller {
         return response;
     }
 
+    public Response deleteTrade(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+
+        tradeService.deleteTrade(requestContext.getPath().split("/")[2], token);
+
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> tradeRoutes = new ArrayList<>();
@@ -82,6 +93,10 @@ public class RestTradeController implements Controller {
         tradeRoutes.add(new Pair<>(
                 routeIdentifier("/tradings/{tradingdealid}", "POST"),
                 this::attemptTrade));
+
+        tradeRoutes.add(new Pair<>(
+                routeIdentifier("/tradings/{tradingdealid}", "DELETE"),
+                this::deleteTrade));
 
         return tradeRoutes;
     }

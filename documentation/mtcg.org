@@ -75,13 +75,6 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [X] Unit test
   - [X] POST /transactions/packages
     + [X] Unit test
-+ [ ] GameController [0/3]
-  - [ ] GET /stats
-    + [ ] Unit test
-  - [ ] GET /scoreboard
-    + [ ] Unit test
-  - [ ] POST /battles
-    + [ ] Unit test
 + [ ] TradingController [0/4]
   - [ ] GET /tradings
     + [ ] Unit test
@@ -91,21 +84,28 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [ ] Unit test
   - [ ] POST /tradings/{tradingdealid}
     + [ ] Unit test
++ [ ] GameController [0/3]
+  - [ ] GET /stats
+    + [ ] Unit test
+  - [ ] GET /scoreboard
+    + [ ] Unit test
+  - [ ] POST /battles
+    + [ ] Unit test
 ** TODO Services [2/4]
 + [X] UserService
 + [X] CardsService
-+ [ ] GameService
 + [ ] TradingService
++ [ ] GameService
 ** TODO Repositories [2/4]
 + [X] UserRepository
 + [X] CardsRepository
-+ [ ] GameRepository
 + [ ] TradingRepository
++ [ ] GameRepository
 ** TODO Model [2/4]
 + [X] UserModel
 + [X] CardsModel
-+ [ ] GameModel
 + [ ] TradingModel
++ [ ] GameModel
 ** TODO Synchronization [0/2]
 :info:
 https://stackoverflow.com/a/2120409

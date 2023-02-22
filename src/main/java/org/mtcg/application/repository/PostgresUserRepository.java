@@ -15,15 +15,14 @@ public class PostgresUserRepository implements UserRepository {
     private static final Connection connection = DataSource.getInstance().getConnection();
 
     private static final String SETUP_TABLE = """
-                CREATE TABLE IF NOT EXISTS users(
-                    token TEXT PRIMARY KEY,
-                    username TEXT NOT NULL,
-                    password TEXT NOT NULL,
-                    name TEXT,
-                    bio TEXT,
-                    image TEXT,
-                    coins INTEGER
-                );
+            CREATE TABLE IF NOT EXISTS users(
+                token TEXT PRIMARY KEY,
+                username TEXT NOT NULL,
+                password TEXT NOT NULL,
+                name TEXT,
+                bio TEXT,
+                image TEXT,
+                coins INTEGER);
             """;
 
     public PostgresUserRepository() {
@@ -37,8 +36,9 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public void saveCredentials(Credentials credentials) throws IllegalStateException {
         final String ADD_USER = """
-                INSERT INTO users (token, username, password, coins) VALUES (?, ?, ?, ?)
-                    """;
+                INSERT INTO users (token, username, password, coins)
+                VALUES (?, ?, ?, ?)
+                """;
         final var user = new User(credentials);
         try (PreparedStatement ps = connection.prepareStatement(ADD_USER)) {
             ps.setString(1, user.getToken());
@@ -54,8 +54,9 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public User findUserByUsername(String username) throws IllegalStateException {
         final String FIND_USER = """
-                SELECT username, password FROM users WHERE username=?
-                            """;
+                SELECT username, password
+                FROM users WHERE username=?
+                """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_USER)) {
             ps.setString(1, username);
@@ -75,8 +76,9 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public User findUserByToken(String token) throws IllegalStateException {
         final String FIND_USER = """
-                SELECT username, password FROM users WHERE token=?
-                            """;
+                SELECT username, password
+                FROM users WHERE token=?
+                """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_USER)) {
             ps.setString(1, token);
@@ -96,7 +98,8 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public void saveUserProfile(String token, UserProfile userProfile) throws IllegalStateException {
         final String SET_USER_PROFILE = """
-                UPDATE users SET name=?, bio=?, image=? WHERE token=?
+                UPDATE users SET name=?, bio=?, image=?
+                WHERE token=?
                 """;
         try (PreparedStatement ps = connection.prepareStatement(SET_USER_PROFILE)) {
             ps.setString(1, userProfile.getName());
@@ -112,7 +115,8 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public UserProfile findUserProfile(String token) throws IllegalStateException {
         final String GET_USER_PROFILE = """
-                SELECT name, bio, image FROM users WHERE token=?
+                SELECT name, bio, image
+                FROM users WHERE token=?
                 """;
         try (PreparedStatement ps = connection.prepareStatement(GET_USER_PROFILE)) {
             ps.setString(1, token);
@@ -133,7 +137,8 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public void saveUserCoins(String token, int coins) throws IllegalStateException {
         final String SET_USER_COINS = """
-                UPDATE users SET coins=? WHERE token=?
+                UPDATE users SET coins=?
+                WHERE token=?
                 """;
         try (PreparedStatement ps = connection.prepareStatement(SET_USER_COINS)) {
             ps.setInt(1, coins);
@@ -147,7 +152,8 @@ public class PostgresUserRepository implements UserRepository {
     @Override
     public int getUserCoins(String token) throws IllegalStateException {
         final String GET_USER_COINS = """
-                SELECT coins FROM users WHERE token=?
+                SELECT coins
+                FROM users WHERE token=?
                 """;
         try (PreparedStatement ps = connection.prepareStatement(GET_USER_COINS)) {
             ps.setString(1, token);

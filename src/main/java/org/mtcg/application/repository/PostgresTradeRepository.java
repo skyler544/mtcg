@@ -15,15 +15,14 @@ public class PostgresTradeRepository implements TradeRepository {
     private static final Connection connection = DataSource.getInstance().getConnection();
 
     private static final String SETUP_TABLE = """
-                CREATE TABLE IF NOT EXISTS trades(
-                    id TEXT PRIMARY KEY,
-                    card_id TEXT NOT NULL,
-                    type TEXT NOT NULL,
-                    damage INTEGER NOT NULL,
+            CREATE TABLE IF NOT EXISTS trades(
+                id TEXT PRIMARY KEY,
+                card_id TEXT NOT NULL,
+                type TEXT NOT NULL,
+                damage INTEGER NOT NULL,
 
-                    CONSTRAINT fk_card_id FOREIGN KEY(card_id)
-                    REFERENCES cards(id)
-                );
+                CONSTRAINT fk_card_id FOREIGN KEY(card_id)
+                REFERENCES cards(id));
             """;
 
     public PostgresTradeRepository() {
@@ -37,8 +36,9 @@ public class PostgresTradeRepository implements TradeRepository {
     @Override
     public List<Trade> getCurrentTradings() {
         final String GET_TRADES = """
-                SELECT id, card_id, type, damage FROM trades
-                    """;
+                SELECT id, card_id, type, damage
+                FROM trades
+                """;
 
         try (PreparedStatement ps = connection.prepareStatement(GET_TRADES)) {
             ps.execute();
@@ -61,7 +61,8 @@ public class PostgresTradeRepository implements TradeRepository {
     @Override
     public Trade getTradeById(String id) {
         final String GET_TRADE_BY_ID = """
-                SELECT id, card_id, type, damage FROM trades WHERE id=?
+                SELECT id, card_id, type, damage
+                FROM trades WHERE id=?
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(GET_TRADE_BY_ID)) {
@@ -86,8 +87,9 @@ public class PostgresTradeRepository implements TradeRepository {
     @Override
     public void postTrade(Trade trade) {
         final String ADD_TRADE = """
-                INSERT INTO trades (id, card_id, type, damage) VALUES (?, ?, ?, ?)
-                                """;
+                INSERT INTO trades (id, card_id, type, damage)
+                VALUES (?, ?, ?, ?)
+                """;
         try (PreparedStatement ps = connection.prepareStatement(ADD_TRADE)) {
             ps.setString(1, trade.getId());
             ps.setString(2, trade.getCardId());
@@ -102,8 +104,9 @@ public class PostgresTradeRepository implements TradeRepository {
     @Override
     public void deleteTrade(String id) {
         final String DELETE_TRADE = """
-                DELETE FROM trades WHERE id=?
-                                """;
+                DELETE FROM trades
+                WHERE id=?
+                """;
 
         try (PreparedStatement ps = connection.prepareStatement(DELETE_TRADE)) {
             ps.setString(1, id);

@@ -14,17 +14,16 @@ public class PostgresCardRepository implements CardRepository {
     private static final Connection connection = DataSource.getInstance().getConnection();
 
     private static final String SETUP_TABLE = """
-                CREATE TABLE IF NOT EXISTS cards(
-                    id TEXT PRIMARY KEY,
-                    name TEXT NOT NULL,
-                    damage INTEGER NOT NULL,
-                    owner TEXT,
-                    package_id TEXT NOT NULL,
-                    in_deck int NOT NULL,
+            CREATE TABLE IF NOT EXISTS cards(
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                damage INTEGER NOT NULL,
+                owner TEXT,
+                package_id TEXT NOT NULL,
+                in_deck int NOT NULL,
 
-                    CONSTRAINT fk_user_token FOREIGN KEY(owner)
-                    REFERENCES users(token)
-                );
+                CONSTRAINT fk_user_token FOREIGN KEY(owner)
+                REFERENCES users(token));
             """;
 
     public PostgresCardRepository() {
@@ -38,8 +37,9 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public void saveCard(Card card) throws IllegalStateException {
         final String ADD_CARD = """
-                INSERT INTO cards (id, name, damage, package_id, in_deck) VALUES (?, ?, ?, ?, ?)
-                                """;
+                INSERT INTO cards (id, name, damage, package_id, in_deck)
+                VALUES (?, ?, ?, ?, ?)
+                """;
         try (PreparedStatement ps = connection.prepareStatement(ADD_CARD)) {
             ps.setString(1, card.getId());
             ps.setString(2, card.getName());
@@ -55,8 +55,9 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public Card findCardById(String id) throws IllegalStateException {
         final String FIND_CARDS_BY_ID = """
-                SELECT id, name, damage, owner, package_id, in_deck FROM cards WHERE id=?
-                                    """;
+                SELECT id, name, damage, owner, package_id, in_deck
+                FROM cards WHERE id=?
+                """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_CARDS_BY_ID)) {
             ps.setString(1, id);
@@ -80,8 +81,9 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public List<Card> findCardsByOwner(String token) throws IllegalStateException {
         final String FIND_CARDS_BY_OWNER = """
-                SELECT id, name, damage, owner, package_id, in_deck FROM cards WHERE owner=?
-                                    """;
+                SELECT id, name, damage, owner, package_id, in_deck
+                FROM cards WHERE owner=?
+                """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_CARDS_BY_OWNER)) {
             ps.setString(1, token);
@@ -105,8 +107,9 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public List<Card> retrievePackage(String packageId) throws IllegalStateException {
         final String FIND_CARDS_BY_PACKAGE_ID = """
-                SELECT id, name, damage, owner, package_id, in_deck FROM cards WHERE package_id=?
-                                    """;
+                SELECT id, name, damage, owner, package_id, in_deck
+                FROM cards WHERE package_id=?
+                """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_CARDS_BY_PACKAGE_ID)) {
             ps.setString(1, packageId);
@@ -130,7 +133,8 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public void saveCardOwner(String id, String token) throws IllegalStateException {
         final String SET_CARD_USER = """
-                UPDATE cards SET owner=? WHERE id=?
+                UPDATE cards SET owner=?
+                WHERE id=?
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(SET_CARD_USER)) {
@@ -145,7 +149,8 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public List<String> getAvailablePackages() throws IllegalStateException {
         final String FIND_AVAILABLE_PACKAGES = """
-                    SELECT package_id FROM cards WHERE owner IS NULL
+                SELECT package_id
+                FROM cards WHERE owner IS NULL
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(FIND_AVAILABLE_PACKAGES)) {
@@ -175,7 +180,8 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public void addCardToDeck(String id) throws IllegalStateException {
         final String SET_CARD_IN_DECK = """
-                UPDATE cards SET in_deck=? WHERE id=?
+                UPDATE cards SET in_deck=?
+                WHERE id=?
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(SET_CARD_IN_DECK)) {
@@ -190,7 +196,8 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public List<Card> getUserDeck(String token) throws IllegalStateException {
         final String GET_CARDS_IN_DECK = """
-                SELECT id, name, damage, owner, package_id, in_deck FROM cards WHERE in_deck=1 AND owner=?
+                SELECT id, name, damage, owner, package_id, in_deck
+                FROM cards WHERE in_deck=1 AND owner=?
                     """;
 
         try (PreparedStatement ps = connection.prepareStatement(GET_CARDS_IN_DECK)) {
@@ -215,7 +222,8 @@ public class PostgresCardRepository implements CardRepository {
     @Override
     public void clearUserDeck(String token) throws IllegalStateException {
         final String CLEAR_DECK = """
-                UPDATE cards SET in_deck=0 WHERE owner=?
+                UPDATE cards SET in_deck=0
+                WHERE owner=?
                     """;
 
         try (PreparedStatement ps = connection.prepareStatement(CLEAR_DECK)) {

@@ -1,7 +1,6 @@
 package org.mtcg.application.service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import org.mtcg.application.model.Card;

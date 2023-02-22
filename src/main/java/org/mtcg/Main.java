@@ -28,7 +28,7 @@ public class Main {
         RestTradeController restTradeController = new RestTradeController(tradeService, userService);
 
         BattleService battleService = new BattleService(new PostgresBattleRepository(), new PostgresUserRepository(), new PostgresCardRepository());
-        RestBattleController restBattleController = new RestBattleController(battleService);
+        RestBattleController restBattleController = new RestBattleController(battleService, userService);
 
         Router router = new Router();
 

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mtcg.application.util.DataSource;
 
@@ -90,6 +92,26 @@ public class PostgresUserRepository implements UserRepository {
                 return null;
             }
 
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to query by username.", e);
+        }
+    }
+
+    @Override
+    public List<String> findActiveUsers() throws IllegalStateException {
+        final String FIND_USERS = """
+                SELECT token
+                FROM users
+                """;
+
+        try (PreparedStatement ps = connection.prepareStatement(FIND_USERS)) {
+            ps.execute();
+            ResultSet rs = ps.getResultSet();
+            List<String> users = new ArrayList<>();
+            while (rs.next()) {
+                users.add(rs.getString(1));
+            }
+            return users;
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to query by username.", e);
         }

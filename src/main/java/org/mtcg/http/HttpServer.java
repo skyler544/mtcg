@@ -78,6 +78,10 @@ public class HttpServer {
                             response = new Response();
                             response.setBody(e.getMessage());
                             response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+                        } catch (NullPointerException e) {
+                            response = new Response();
+                            response.setBody(e.getMessage());
+                            response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
                         }
 
                         BufferedWriter w = new BufferedWriter(

@@ -38,6 +38,10 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
     the repositories
 ** TODO Controllers [2/4]
 :LOGBOOK:
+CLOCK: [2023-02-22 Wed 20:41]--[2023-02-22 Wed 22:02] =>  1:21
+CLOCK: [2023-02-22 Wed 19:56]--[2023-02-22 Wed 20:25] =>  0:29
+CLOCK: [2023-02-22 Wed 17:46]--[2023-02-22 Wed 19:23] =>  1:37
+CLOCK: [2023-02-22 Wed 15:45]--[2023-02-22 Wed 16:50] =>  1:05
 CLOCK: [2023-02-21 Tue 16:04]--[2023-02-21 Tue 18:46] =>  2:42
 CLOCK: [2023-02-21 Tue 14:42]--[2023-02-21 Tue 15:56] =>  1:14
 CLOCK: [2023-02-21 Tue 08:34]--[2023-02-21 Tue 12:01] =>  3:27
@@ -87,10 +91,10 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [ ] Unit test
   - [X] POST /tradings/{tradingdealid}
     + [ ] Unit test
-+ [ ] GameController [0/3]
-  - [ ] GET /stats
++ [ ] GameController [2/3]
+  - [X] GET /stats
     + [ ] Unit test
-  - [ ] GET /scoreboard
+  - [X] GET /scoreboard
     + [ ] Unit test
   - [ ] POST /battles
     + [ ] Unit test
@@ -104,11 +108,11 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
 + [X] CardsRepository
 + [X] TradingRepository
 + [ ] GameRepository
-** TODO Model [3/4]
+** TODO Model [4/4]
 + [X] UserModel
 + [X] CardsModel
 + [X] TradingModel
-+ [ ] GameModel
++ [X] GameModel
 ** TODO Synchronization [0/2]
 :info:
 https://stackoverflow.com/a/2120409

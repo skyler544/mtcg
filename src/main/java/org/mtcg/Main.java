@@ -1,12 +1,15 @@
 package org.mtcg;
 
 import org.mtcg.application.controller.RestUserController;
+import org.mtcg.application.controller.RestBattleController;
 import org.mtcg.application.controller.RestCardController;
 import org.mtcg.application.controller.RestTradeController;
 import org.mtcg.application.repository.PostgresUserRepository;
 import org.mtcg.application.router.Router;
+import org.mtcg.application.service.BattleService;
 import org.mtcg.application.service.CardService;
 import org.mtcg.application.service.TradeService;
+import org.mtcg.application.repository.PostgresBattleRepository;
 import org.mtcg.application.repository.PostgresCardRepository;
 import org.mtcg.application.repository.PostgresTradeRepository;
 import org.mtcg.application.service.UserService;
@@ -24,6 +27,9 @@ public class Main {
         TradeService tradeService = new TradeService(new PostgresTradeRepository(), new PostgresCardRepository());
         RestTradeController restTradeController = new RestTradeController(tradeService, userService);
 
+        BattleService battleService = new BattleService(new PostgresBattleRepository(), new PostgresUserRepository(), new PostgresCardRepository());
+        RestBattleController restBattleController = new RestBattleController(battleService);
+
         Router router = new Router();
 
         restUserController.listRoutes()
@@ -33,6 +39,9 @@ public class Main {
                 .forEach(router::registerRoute);
 
         restTradeController.listRoutes()
+                .forEach(router::registerRoute);
+
+        restBattleController.listRoutes()
                 .forEach(router::registerRoute);
 
         HttpServer httpServer = new HttpServer(router);

@@ -18,7 +18,7 @@ public class PostgresBattleRepository implements BattleRepository {
             CREATE TABLE IF NOT EXISTS battles(
                 id SERIAL PRIMARY KEY,
                 player_one TEXT NOT NULL,
-                player_two INTEGER NOT NULL,
+                player_two TEXT NOT NULL,
                 rounds_id INTEGER NOT NULL,
                 result TEXT NOT NULL);
 

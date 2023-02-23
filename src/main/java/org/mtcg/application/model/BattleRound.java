@@ -8,21 +8,28 @@ public class BattleRound {
     @JsonProperty("BattleId")
     private int battleId;
 
-    @JsonProperty("PlayerOneCardId")
-    private String playerOneCardId;
-    @JsonProperty("PlayerTwoCardId")
-    private String playerTwoCardId;
+    @JsonProperty("PlayerOneCardInfo")
+    private String playerOneCardInfo;
+    @JsonProperty("PlayerTwoCardInfo")
+    private String playerTwoCardInfo;
 
     @JsonProperty("Result")
     String result;
 
     public BattleRound() {}
 
-    public BattleRound(int roundId, int battleId, String playerOneCardId, String playerTwoCardId, String result) {
+    public BattleRound(int battleId, String playerOneCardInfo, String playerTwoCardInfo, String result) {
+		this.battleId = battleId;
+		this.playerOneCardInfo = playerOneCardInfo;
+		this.playerTwoCardInfo = playerTwoCardInfo;
+		this.result = result;
+    }
+
+    public BattleRound(int roundId, int battleId, String playerOneCardInfo, String playerTwoCardInfo, String result) {
 		this.roundId = roundId;
 		this.battleId = battleId;
-		this.playerOneCardId = playerOneCardId;
-		this.playerTwoCardId = playerTwoCardId;
+		this.playerOneCardInfo = playerOneCardInfo;
+		this.playerTwoCardInfo = playerTwoCardInfo;
 		this.result = result;
     }
 
@@ -42,20 +49,20 @@ public class BattleRound {
 		this.battleId = battleId;
 	}
 
-	public String getPlayerOneCardId() {
-		return playerOneCardId;
+	public String getPlayerOneCardInfo() {
+		return playerOneCardInfo;
 	}
 
-	public void setPlayerOneCardId(String playerOneCardId) {
-		this.playerOneCardId = playerOneCardId;
+	public void setPlayerOneCardInfo(String playerOneCardInfo) {
+		this.playerOneCardInfo = playerOneCardInfo;
 	}
 
-	public String getPlayerTwoCardId() {
-		return playerTwoCardId;
+	public String getPlayerTwoCardInfo() {
+		return playerTwoCardInfo;
 	}
 
-	public void setPlayerTwoCardId(String playerTwoCardId) {
-		this.playerTwoCardId = playerTwoCardId;
+	public void setPlayerTwoCardInfo(String playerTwoCardInfo) {
+		this.playerTwoCardInfo = playerTwoCardInfo;
 	}
 
 	public String getResult() {

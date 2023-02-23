@@ -21,6 +21,12 @@ public class Battle {
 
     public Battle() {}
 
+    public Battle(String playerOne, String playerTwo, String result) {
+		this.playerOne = playerOne;
+		this.playerTwo = playerTwo;
+		this.result = result;
+    }
+
     public Battle(int battleId, String playerOne, String playerTwo, String result) {
 		this.battleId = battleId;
 		this.playerOne = playerOne;

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class PostgresBattleRepository implements BattleRepository {
             CREATE TABLE IF NOT EXISTS rounds(
                 round_id SERIAL PRIMARY KEY,
                 battle_id INTEGER NOT NULL,
-                card_one_id TEXT NOT NULL,
-                card_two_id TEXT NOT NULL,
+                card_one_info TEXT NOT NULL,
+                card_two_info TEXT NOT NULL,
                 result TEXT NOT NULL,
 
                 CONSTRAINT fk_battle_id FOREIGN KEY(battle_id)
@@ -41,17 +42,23 @@ public class PostgresBattleRepository implements BattleRepository {
     }
 
     @Override
-    public void saveBattle(Battle battle) {
+    public int saveBattle(Battle battle) {
         final String ADD_BATTLE = """
-                INSERT INTO battles (player_one, player_two, result)
-                VALUES (?, ?, ?)
+                INSERT INTO battles (id, player_one, player_two, result)
+                VALUES (DEFAULT, ?, ?, ?)
                 """;
 
-        try (PreparedStatement ps = connection.prepareStatement(ADD_BATTLE)) {
+        try (PreparedStatement ps = connection.prepareStatement(ADD_BATTLE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, battle.getPlayerOne());
             ps.setString(2, battle.getPlayerTwo());
             ps.setString(3, battle.getResult());
             ps.execute();
+            ResultSet generatedKey = ps.getGeneratedKeys();
+            if (generatedKey.next()) {
+                return generatedKey.getInt(1);
+            } else {
+                return -1;
+            }
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to save battle.", e);
         }
@@ -105,16 +112,31 @@ public class PostgresBattleRepository implements BattleRepository {
     }
 
     @Override
+    public void updateBattleResult(String result, int id) {
+        final String UPDATE_BATTLE = """
+                UPDATE battles set result=?
+                WHERE id=?
+                """;
+        try (PreparedStatement ps = connection.prepareStatement(UPDATE_BATTLE)) {
+            ps.setString(1, result);
+            ps.setInt(2, id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to read battle info.", e);
+        }
+    }
+
+    @Override
     public void saveBattleRound(BattleRound round) {
         final String SAVE_BATTLE_LOG = """
-                INSERT INTO rounds (battle_id, card_one_id, card_two_id, result)
+                INSERT INTO rounds (battle_id, card_one_info, card_two_info, result)
                 VALUES (?, ?, ?, ?)
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(SAVE_BATTLE_LOG)) {
             ps.setInt(1, round.getBattleId());
-            ps.setString(2, round.getPlayerOneCardId());
-            ps.setString(3, round.getPlayerOneCardId());
+            ps.setString(2, round.getPlayerOneCardInfo());
+            ps.setString(3, round.getPlayerTwoCardInfo());
             ps.setString(4, round.getResult());
             ps.execute();
         } catch (SQLException e) {
@@ -125,7 +147,7 @@ public class PostgresBattleRepository implements BattleRepository {
     @Override
     public List<BattleRound> readBattleLog(int id) {
         final String GET_BATTLE_LOG = """
-                SELECT round_id, battle_id, card_one_id, card_two_id, result
+                SELECT round_id, battle_id, card_one_info, card_two_info, result
                 FROM rounds WHERE battle_id=?
                 """;
 

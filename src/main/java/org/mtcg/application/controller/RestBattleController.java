@@ -45,6 +45,16 @@ public class RestBattleController implements Controller {
         return response;
     }
 
+    public Response battle(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        response.setBody(battleService.battle(token));
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> battleRoutes = new ArrayList<>();
@@ -56,6 +66,10 @@ public class RestBattleController implements Controller {
         battleRoutes.add(new Pair<>(
                 routeIdentifier("/score", "GET"),
                 this::getScoreboard));
+
+        battleRoutes.add(new Pair<>(
+                routeIdentifier("/battles", "POST"),
+                this::battle));
 
         return battleRoutes;
     }

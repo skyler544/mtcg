@@ -71,4 +71,15 @@ public class BattleService {
             throw new IllegalStateException("Internal server error.", e);
         }
     }
+
+    public String battle(String token) {
+        // attempt to put the user into the lobby
+        // check if there are two players waiting
+        // run battle
+        // save log
+        // construct battle object
+        // return it
+
+        return "";
+    }
 }

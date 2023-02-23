@@ -16,4 +16,4 @@ the project than the `mvn` commands.
   
 
 # Clean up tables between runs
-DROP TABLE IF EXISTS users, cards, trades, battles;
+DROP TABLE IF EXISTS users, cards, trades, battles, rounds;

@@ -56,13 +56,10 @@ public class BattleService {
     }
 
     public String getScoreboard() {
-        System.out.println("Made it into scoreboard");
         List<String> users = userRepository.findActiveUsers();
-        System.out.println("queried users");
         List<Stats> stats = new ArrayList<>();
 
         for (var token : users) {
-            System.out.println(token);
             stats.add(getStatsObject(token));
         }
         try {

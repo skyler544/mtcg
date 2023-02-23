@@ -42,7 +42,7 @@ public class BattleService {
         }
 
         losses = battles.size() - wins;
-        elo = battles.size() / wins;
+        elo = wins > 0 ? battles.size() / wins : 0;
 
         return new Stats(name, elo, wins, losses);
     }

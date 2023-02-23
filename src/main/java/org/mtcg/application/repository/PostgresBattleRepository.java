@@ -19,7 +19,6 @@ public class PostgresBattleRepository implements BattleRepository {
                 id SERIAL PRIMARY KEY,
                 player_one TEXT NOT NULL,
                 player_two TEXT NOT NULL,
-                rounds_id INTEGER NOT NULL,
                 result TEXT NOT NULL);
 
             CREATE TABLE IF NOT EXISTS rounds(
@@ -44,14 +43,14 @@ public class PostgresBattleRepository implements BattleRepository {
     @Override
     public void saveBattle(Battle battle) {
         final String ADD_BATTLE = """
-                INSERT INTO battles (player_one, player_two, result, rounds_id)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO battles (player_one, player_two, result)
+                VALUES (?, ?, ?)
                 """;
 
         try (PreparedStatement ps = connection.prepareStatement(ADD_BATTLE)) {
             ps.setString(1, battle.getPlayerOne());
             ps.setString(2, battle.getPlayerTwo());
-            ps.setString(1, battle.getPlayerOne());
+            ps.setString(3, battle.getResult());
             ps.execute();
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to save battle.", e);
@@ -61,7 +60,7 @@ public class PostgresBattleRepository implements BattleRepository {
     @Override
     public Battle readBattleById(int id) {
         final String GET_BATTLE = """
-                SELECT id, player_one, player_two, rounds_id, result
+                SELECT id, player_one, player_two, result
                 FROM battles WHERE id=?
                 """;
         try (PreparedStatement ps = connection.prepareStatement(GET_BATTLE)) {
@@ -72,8 +71,7 @@ public class PostgresBattleRepository implements BattleRepository {
                 return new Battle(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5));
+                        rs.getString(4));
             } else {
                 return null;
             }
@@ -85,7 +83,7 @@ public class PostgresBattleRepository implements BattleRepository {
     @Override
     public List<Battle> getBattlesByParticipant(String name) {
         final String GET_BATTLES = """
-                SELECT id, player_one, player_two, rounds_id, result
+                SELECT id, player_one, player_two, result
                 FROM battles WHERE player_one=? OR player_two=?
                 """;
         try (PreparedStatement ps = connection.prepareStatement(GET_BATTLES)) {
@@ -98,8 +96,7 @@ public class PostgresBattleRepository implements BattleRepository {
                 battles.add(new Battle(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)));
+                        rs.getString(4)));
             }
             return battles;
         } catch (SQLException e) {

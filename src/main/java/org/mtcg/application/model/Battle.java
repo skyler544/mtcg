@@ -1,5 +1,7 @@
 package org.mtcg.application.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Battle {
@@ -11,19 +13,18 @@ public class Battle {
     @JsonProperty("PlayerTwo")
     private String playerTwo;
 
-    @JsonProperty("RoundsId")
-    private int roundsId;
-
 	@JsonProperty("Result")
     private String result;
 
+    @JsonProperty("Rounds")
+    private List<BattleRound> rounds;
+
     public Battle() {}
 
-    public Battle(int battleId, String playerOne, String playerTwo, int roundsId, String result) {
+    public Battle(int battleId, String playerOne, String playerTwo, String result) {
 		this.battleId = battleId;
 		this.playerOne = playerOne;
 		this.playerTwo = playerTwo;
-		this.roundsId = roundsId;
 		this.result = result;
     }
 
@@ -43,19 +44,19 @@ public class Battle {
 		this.playerTwo = playerTwo;
 	}
 
-    public int getRoundsId() {
-		return roundsId;
-	}
-
-	public void setRoundsId(int roundsId) {
-		this.roundsId = roundsId;
-	}
-
 	public String getResult() {
 		return result;
 	}
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public List<BattleRound> getRounds() {
+		return rounds;
+	}
+
+	public void setRounds(List<BattleRound> rounds) {
+		this.rounds = rounds;
 	}
 }

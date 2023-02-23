@@ -60,7 +60,10 @@ public class RestUserController implements Controller {
     }
 
     public Response getProfile(RequestContext requestContext) {
-        // get username from route
+        // HACK: Using split like this is literally just the first way I could
+        // think of to pass the integration tests, but it's not a robust
+        // solution and needs to be replaced with some sort of parsing logic
+        // anywhere it's used
         String username = requestContext.getPath().split("/")[2];
         String token = requestContext.getToken();
 

@@ -17,7 +17,8 @@ DEADLINE: <2023-02-26 Sun 23:55>
 Checklist:
 (async-shell-command "chromium https://docs.google.com/spreadsheets/d/1QpgEEVFwCxaCE-Q3iN1O-8myCMOjknp8/edit#gid=231551220")
 :end:
-** TODO Database [4/4]
+** DONE Database [4/4]
+CLOSED: [2023-02-23 Thu 21:54]
 :LOGBOOK:
 CLOCK: [2023-02-06 Mon 17:13]--[2023-02-06 Mon 18:37] =>  1:24
 CLOCK: [2023-02-05 Sun 18:14]--[2023-02-05 Sun 19:49] =>  1:35
@@ -36,8 +37,11 @@ CLOCK: [2023-02-05 Sun 15:00]--[2023-02-05 Sun 18:00] =>  3:00
 + [X] Create Schema
   - This happens 'automatically' as a result of using create table statements in
     the repositories
-** TODO Controllers [2/4]
+** DONE Controllers [4/4]
+CLOSED: [2023-02-23 Thu 21:54]
 :LOGBOOK:
+CLOCK: [2023-02-23 Thu 18:23]--[2023-02-23 Thu 21:54] =>  3:31
+CLOCK: [2023-02-23 Thu 14:38]--[2023-02-23 Thu 15:20] =>  0:42
 CLOCK: [2023-02-22 Wed 20:41]--[2023-02-22 Wed 22:02] =>  1:21
 CLOCK: [2023-02-22 Wed 19:56]--[2023-02-22 Wed 20:25] =>  0:29
 CLOCK: [2023-02-22 Wed 17:46]--[2023-02-22 Wed 19:23] =>  1:37
@@ -84,42 +88,46 @@ CLOCK: [2023-02-11 Sat 17:53]--[2023-02-11 Sat 22:00] =>  4:07
     + [X] Unit test
 + [X] TradingController [4/4]
   - [X] GET /tradings
-    + [ ] Unit test
   - [X] POST /tradings
-    + [ ] Unit test
   - [X] DELETE /tradings/{tradingdealid}
-    + [ ] Unit test
   - [X] POST /tradings/{tradingdealid}
-    + [ ] Unit test
-+ [ ] GameController [2/3]
++ [X] GameController [3/3]
   - [X] GET /stats
-    + [ ] Unit test
   - [X] GET /scoreboard
-    + [ ] Unit test
-  - [ ] POST /battles
-    + [ ] Unit test
-** TODO Services [3/4]
+  - [X] POST /battles
+** DONE Services [4/4]
+CLOSED: [2023-02-23 Thu 21:54]
 + [X] UserService
 + [X] CardsService
 + [X] TradingService
-+ [ ] GameService
-** TODO Repositories [3/4]
++ [X] GameService
+** DONE Repositories [4/4]
+CLOSED: [2023-02-23 Thu 21:54]
 + [X] UserRepository
 + [X] CardsRepository
 + [X] TradingRepository
-+ [ ] GameRepository
-** TODO Model [4/4]
++ [X] GameRepository
+** DONE Model [4/4]
+CLOSED: [2023-02-23 Thu 21:54]
 + [X] UserModel
 + [X] CardsModel
 + [X] TradingModel
 + [X] GameModel
-** TODO Synchronization [0/2]
+** TODO Unique Feature [0/1]
++ [ ] LoreMaster 
+  - [ ] GET /loremaster --authorization mtcg-token
+** DONE Synchronization [2/2]
+CLOSED: [2023-02-23 Thu 18:14]
+:LOGBOOK:
+CLOCK: [2023-02-23 Thu 16:00]--[2023-02-23 Thu 18:13] =>  2:13
+:END:
 :info:
 https://stackoverflow.com/a/2120409
 :end:
-+ [ ] Identify critical areas
-  - should this happen in the services?
-+ [ ] Use synchronized keyword
++ [X] Identify critical areas
+  - Inside the battle service
++ [X] Use synchronized keyword
+  - use it with a lock object as a member field of the service class, not on the service class itself
 ** DONE Learn to use Unit Tests [1/1]
 CLOSED: [2023-02-18 Sat 14:03]
 :LOGBOOK:

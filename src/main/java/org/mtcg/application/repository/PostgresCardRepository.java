@@ -160,9 +160,6 @@ public class PostgresCardRepository implements CardRepository {
             while (rs.next()) {
                 packages.add(rs.getString(1));
             }
-            for (var pkg : packages) {
-                System.out.println(pkg);
-            }
             return packages;
         } catch (SQLException e) {
             throw new IllegalStateException("Failed to query packages.", e);

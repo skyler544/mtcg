@@ -56,7 +56,7 @@ public class TradeService {
 
     public String getCurrentTradings() {
         try {
-            return om.writeValueAsString(tradeRepository.getCurrentTradings());
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(tradeRepository.getCurrentTradings());
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Internal server error.", e);
         }

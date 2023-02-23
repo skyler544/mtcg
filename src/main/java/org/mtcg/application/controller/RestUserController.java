@@ -75,7 +75,7 @@ public class RestUserController implements Controller {
 
         Response response = new Response();
         try {
-            response.setBody(om.writeValueAsString(userProfile));
+            response.setBody(om.writerWithDefaultPrettyPrinter().writeValueAsString(userProfile));
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Internal server error.", e);
         }

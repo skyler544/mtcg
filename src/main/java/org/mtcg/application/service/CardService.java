@@ -54,7 +54,7 @@ public class CardService {
 
     public String returnUserCards(String token) {
         try {
-            return om.writeValueAsString(cardRepository.findCardsByOwner(token));
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(cardRepository.findCardsByOwner(token));
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Internal server error.", e);
         }
@@ -87,7 +87,7 @@ public class CardService {
 
     public String getUserDeck(String token) {
         try {
-            return om.writeValueAsString(cardRepository.getUserDeck(token));
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(cardRepository.getUserDeck(token));
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Internal server error.", e);
         }

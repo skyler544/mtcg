@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.jgrapht.alg.util.UnorderedPair;
 import org.mtcg.application.model.Battle;
 import org.mtcg.application.model.BattleRound;
 import org.mtcg.application.model.Card;
@@ -62,7 +61,7 @@ public class BattleService {
 
     public String getStats(String token) {
         try {
-            return om.writeValueAsString(getStatsObject(token));
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(getStatsObject(token));
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Internal server error.", e);
         }
@@ -76,7 +75,7 @@ public class BattleService {
             stats.add(getStatsObject(token));
         }
         try {
-            return om.writeValueAsString(stats);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(stats);
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Internal server error.", e);
         }
@@ -108,7 +107,7 @@ public class BattleService {
             battle.setRounds(battleRepository.readBattleLog(battleId));
             // return it as JSON
             try {
-                return om.writeValueAsString(battle);
+                return om.writerWithDefaultPrettyPrinter().writeValueAsString(battle);
             } catch (JsonProcessingException e) {
                 throw new IllegalStateException("Internal server error.", e);
             }
@@ -134,7 +133,7 @@ public class BattleService {
         List<Card> deckTwo = cardRepository.getUserDeck(playerTwo);
 
         do {
-            String resultLog = "+--  Round " + roundCount++ + "  --+\n";
+            String resultLog = "+--  Round " + ++roundCount + "  --+\n";
 
             // pick a card randomly for each player
             int cardOne = rg.nextInt(deckOne.size());
@@ -319,8 +318,8 @@ public class BattleService {
             }
         } while (!gameOver && roundCount <= ROUND_LIMIT);
 
-        result = deckOne.size() == 0 ? playerTwo : "draw";
-        result = deckTwo.size() == 0 ? playerOne : "draw";
+        result = deckOne.size() == 0 ? playerTwo : result;
+        result = deckTwo.size() == 0 ? playerOne : result;
 
         battleRepository.updateBattleResult(result, battleId);
 

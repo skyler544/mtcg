@@ -12,6 +12,45 @@
 :END:
 
 * Design
+The application is structured in layers. Each layer has an area of concern for
+which it should be responsible, with as little mixing as possible between the
+layers. Furthermore, any one layer should only touch the layer immediately
+beneath it, and never any deeper than a single layer. The layer hierarchy is as
+follows:
+
++ Controllers
+  - Services
+    + Models
+    + Repositories
+
+** Controllers
+Controllers are responsible for receiving Http Requests and creating and sending
+Http Responses. The pattern is simple:
+1. Get a request object
+2. Authenticate the user (via the =UserService=)
+3. Retrieve the contents of the response from the service layer
+4. Send the response
+** Services
+Services are responsible for all the logic that happens in the
+application. Methods are provided for i.e. authentication, trading, and
+battling. The pattern here is more variable but follows this general list of objectives:
+- Sanity checking of data
+- Usage of repository methods for input/output from the database
+- Performance of some kind of operation on the data such as calculating a user's stats
+- Returning valid data
+** Models
+Models define the actual "objects" involved in the application. These can be
+more or less concrete, but they serve a couple of purposes:
+- Structuring data
+- Defining objects
+** Repositories
+Repositories depend on the models for defining what the database schema should
+look like. The repository then provides simplistic database IO, including
+creating, reading, updating, and deleting data. (CRUD)
+- Defines schema
+- Provides input/output
+- Data validation, in the sense that only data which conforms to the models can
+  be read/inserted/etc.
 
 * Lessons Learned
 

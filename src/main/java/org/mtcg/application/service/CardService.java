@@ -8,9 +8,10 @@ import org.mtcg.application.model.CardType;
 import org.mtcg.application.model.Type;
 import org.mtcg.application.model.Element;
 import org.mtcg.application.repository.CardRepository;
-import org.mtcg.http.exception.ConflictException;
-import org.mtcg.http.exception.ForbiddenException;
-import org.mtcg.http.exception.NotFoundException;
+import org.mtcg.http.HttpStatus;
+import org.mtcg.http.exception.MtcgException;
+import org.mtcg.http.exception.MtcgException;
+import org.mtcg.http.exception.MtcgException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -35,7 +36,7 @@ public class CardService {
             });
             for (var card : cards) {
                 if (findCardById(card.getId()) != null) {
-                    throw new ConflictException("Card already exists.");
+                    throw new MtcgException("Card already exists.", HttpStatus.CONFLICT);
                 } else {
                     card.setPackageId(packageId.toString());
                     cardRepository.saveCard(card);
@@ -46,12 +47,12 @@ public class CardService {
         }
     }
 
-    public void buyPackage(String token) throws NotFoundException {
+    public void buyPackage(String token) throws MtcgException {
         List<String> packages = cardRepository.getAvailablePackages();
         if (!packages.isEmpty()) {
             cardRepository.setPackageOwner(packages.get(0), token);
         } else {
-            throw new NotFoundException("No packages available.");
+            throw new MtcgException("No packages available.", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -76,7 +77,7 @@ public class CardService {
         Card card = findCardById(id);
 
         if (card == null || !card.getOwner().equals(token)) {
-            throw new ForbiddenException("Card does not exist or does not belong to this user.");
+            throw new MtcgException("Card does not exist or does not belong to this user.", HttpStatus.FORBIDDEN);
         }
     }
 

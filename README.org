@@ -11,6 +11,11 @@
 #+LATEX_HEADER: \usepackage[a4paper, margin=2.5cm]{geometry}
 :END:
 
+* Alternative Exception System
+This branch contains an alternative exception system for the project. It does
+appear to work (the curl script passes as expected), but I'm not sure if the
+code is made less clear as a side-effect.
+
 * Intro
 This is a RESTful trading card game written in Java. The assignment description,
 OpenAPI specification, and general documentation for the project can be found in

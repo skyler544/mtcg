@@ -4,10 +4,10 @@ import org.mtcg.application.model.Credentials;
 import org.mtcg.application.model.User;
 import org.mtcg.application.model.UserProfile;
 import org.mtcg.application.service.UserService;
-import org.mtcg.http.exception.BadRequestException;
+import org.mtcg.http.exception.MtcgException;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.Response;
-import org.mtcg.http.exception.UnauthorizedException;
+import org.mtcg.http.exception.MtcgException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -48,7 +48,7 @@ public class RestUserControllerTest {
         // Act
         try {
             restUserController.register(credentials);
-        } catch (BadRequestException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
 
@@ -75,12 +75,12 @@ public class RestUserControllerTest {
         final UserProfile userProfile = new UserProfile("foo", "bar", "baz");
         final String token = "token";
         final String username = "username";
-        doThrow(new UnauthorizedException("Authentication failure."))
+        doThrow(new MtcgException("Authentication failure.", HttpStatus.UNAUTHORIZED))
                 .when(userService).saveUserProfile(token, username, userProfile);
         // Act
         try {
             restUserController.updateProfile(token, username, userProfile);
-        } catch (UnauthorizedException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
         // Assert
@@ -104,12 +104,12 @@ public class RestUserControllerTest {
         boolean thrown = false;
         final String token = "token";
         final String username = "username";
-        doThrow(new UnauthorizedException("Authentication failure."))
+        doThrow(new MtcgException("Authentication failure.", HttpStatus.UNAUTHORIZED))
                 .when(userService).findUserProfile(token, username);
         // Act
         try {
             restUserController.getProfile(token, username);
-        } catch (UnauthorizedException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
         // Assert
@@ -141,12 +141,12 @@ public class RestUserControllerTest {
         final String password = "bar";
         Credentials credentials = new Credentials(username, password);
         when(userService.authenticateViaCredentials(credentials))
-                .thenThrow(new UnauthorizedException("Authentication failure."));
+                .thenThrow(new MtcgException("Authentication failure.", HttpStatus.UNAUTHORIZED));
 
         // Act
         try {
             restUserController.login(credentials);
-        } catch (UnauthorizedException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
 

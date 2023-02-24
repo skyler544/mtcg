@@ -9,8 +9,8 @@ import org.mtcg.application.util.Pair;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
-import org.mtcg.http.exception.BadRequestException;
-import org.mtcg.http.exception.ForbiddenException;
+import org.mtcg.http.exception.MtcgException;
+import org.mtcg.http.exception.MtcgException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +40,11 @@ public class RestCardController implements Controller {
         String token = requestContext.getToken();
         userService.authenticateToken(token);
         if (userService.checkBalance(token) >= PACKAGE_PRICE) {
-            // will throw a NotFoundException if no cards are available
+            // will throw an exception with NOT_FOUND if no cards are available
             cardService.buyPackage(token);
             userService.subtractUserCoins(token, PACKAGE_PRICE);
         } else {
-            throw new ForbiddenException("Not enough coins.");
+            throw new MtcgException("Not enough coins.", HttpStatus.FORBIDDEN);
         }
         Response response = new Response();
         response.setHttpStatus(HttpStatus.OK);
@@ -69,7 +69,7 @@ public class RestCardController implements Controller {
         String[] cards = cardService.cardIdArray(requestContext.getBody());
 
         if (cards.length != 4) {
-            throw new BadRequestException("The deck must consist of 4 cards.");
+            throw new MtcgException("The deck must consist of 4 cards.", HttpStatus.BAD_REQUEST);
         }
 
         for (var id : cards) {

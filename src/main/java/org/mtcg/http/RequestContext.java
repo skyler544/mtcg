@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
-import org.mtcg.http.exception.BadRequestException;
+import org.mtcg.http.exception.MtcgException;
 
 public class RequestContext {
 
@@ -79,7 +79,7 @@ public class RequestContext {
             return objectMapper.readValue(body, clazz);
         } catch (JsonProcessingException e) {
             System.err.println(e.getMessage());
-            throw new BadRequestException(e.getMessage());
+            throw new MtcgException(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

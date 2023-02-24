@@ -10,7 +10,7 @@ import org.mtcg.application.util.Pair;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
-import org.mtcg.http.exception.NotFoundException;
+import org.mtcg.http.exception.MtcgException;
 
 import java.util.ArrayList;
 import java.util.List;

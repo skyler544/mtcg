@@ -10,14 +10,10 @@ import org.mtcg.application.service.UserService;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
-import org.mtcg.http.exception.BadRequestException;
-import org.mtcg.http.exception.ForbiddenException;
-import org.mtcg.http.exception.UnauthorizedException;
+import org.mtcg.http.exception.MtcgException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-import javax.smartcardio.CardException;
 
 @ExtendWith(MockitoExtension.class)
 public class RestCardControllerTest {
@@ -43,11 +39,11 @@ public class RestCardControllerTest {
     void testAddPackageFailure() {
         // Arrange
         boolean thrown = false;
-        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).adminAuthenticate(null);
+        doThrow(new MtcgException("Authentication failure.", HttpStatus.UNAUTHORIZED)).when(userService).adminAuthenticate(null);
         // Act
         try {
             restCardController.addPackage(requestContext);
-        } catch (UnauthorizedException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
         // Assert
@@ -75,7 +71,7 @@ public class RestCardControllerTest {
         // Act
         try {
             restCardController.acquirePackage(requestContext);
-        } catch (ForbiddenException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
 
@@ -99,12 +95,12 @@ public class RestCardControllerTest {
     void testGetUserCardsFailure() {
         // Arrange
         boolean thrown = false;
-        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).authenticateToken(null);
+        doThrow(new MtcgException("Authentication failure.", HttpStatus.UNAUTHORIZED)).when(userService).authenticateToken(null);
 
         // Act
         try {
             restCardController.getCards(requestContext);
-        } catch (UnauthorizedException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
         // Assert
@@ -134,7 +130,7 @@ public class RestCardControllerTest {
         // Act
         try {
             restCardController.setDeck(requestContext);
-        } catch (BadRequestException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
 
@@ -154,12 +150,12 @@ public class RestCardControllerTest {
     void testGetDeckFailure() {
         // Arrange
         boolean thrown = false;
-        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).authenticateToken(null);
+        doThrow(new MtcgException("Authentication failure.", HttpStatus.UNAUTHORIZED)).when(userService).authenticateToken(null);
 
         // Act
         try {
             restCardController.getDeck(requestContext);
-        } catch (UnauthorizedException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
 
@@ -179,12 +175,12 @@ public class RestCardControllerTest {
     void testGetDeckPlainTextFailure() {
         // Arrange
         boolean thrown = false;
-        doThrow(new UnauthorizedException("Authentication failure.")).when(userService).authenticateToken(null);
+        doThrow(new MtcgException("Authentication failure.", HttpStatus.UNAUTHORIZED)).when(userService).authenticateToken(null);
 
         // Act
         try {
             restCardController.getDeckPlainText(requestContext);
-        } catch (UnauthorizedException e) {
+        } catch (MtcgException e) {
             thrown = true;
         }
 

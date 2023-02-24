@@ -3,9 +3,10 @@ package org.mtcg.application.service;
 import org.mtcg.application.model.Card;
 import org.mtcg.application.model.Trade;
 import org.mtcg.application.repository.TradeRepository;
-import org.mtcg.http.exception.ConflictException;
-import org.mtcg.http.exception.ForbiddenException;
-import org.mtcg.http.exception.NotFoundException;
+import org.mtcg.http.HttpStatus;
+import org.mtcg.http.exception.MtcgException;
+import org.mtcg.http.exception.MtcgException;
+import org.mtcg.http.exception.MtcgException;
 import org.mtcg.application.repository.CardRepository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,7 +30,7 @@ public class TradeService {
         Card card = cardRepository.findCardById(trade.getCardId());
 
         if (card.getInDeck() != 0 || !card.getOwner().equals(token)) {
-            throw new ForbiddenException("Card in deck or not owned by this user.");
+            throw new MtcgException("Card in deck or not owned by this user.", HttpStatus.FORBIDDEN);
         }
     }
 
@@ -47,7 +48,7 @@ public class TradeService {
         Trade offer = parseTrade(trade);
 
         if (findTradeById(offer.getId()) != null) {
-            throw new ConflictException("A trade with this ID already exists.");
+            throw new MtcgException("A trade with this ID already exists.", HttpStatus.CONFLICT);
         }
         checkCardInDeckAndUserOwnsCard(offer, token);
 
@@ -65,7 +66,7 @@ public class TradeService {
     public Trade doesTradeExist(String tradeId) {
         Trade trade = findTradeById(tradeId);
         if (trade == null) {
-            throw new NotFoundException("The provided deal ID was not found.");
+            throw new MtcgException("The provided deal ID was not found.", HttpStatus.NOT_FOUND);
         }
         return trade;
     }
@@ -77,7 +78,7 @@ public class TradeService {
         Card cardFromTrade = cardRepository.findCardById(trade.getCardId());
 
         if (offeredCard == null || cardFromTrade == null) {
-            throw new NotFoundException("Card does not exist.");
+            throw new MtcgException("Card does not exist.", HttpStatus.NOT_FOUND);
         }
 
         String offeredCardOwner = offeredCard.getOwner();
@@ -86,19 +87,19 @@ public class TradeService {
         String type = offeredCard.getName().toLowerCase().contains("spell") ? "spell" : "monster";
 
         if (!offeredCardOwner.equals(token)) {
-            throw new ForbiddenException("You may not trade cards you do not own.");
+            throw new MtcgException("You may not trade cards you do not own.", HttpStatus.FORBIDDEN);
         }
         if (offeredCardOwner.equals(cardFromTradeOwner)) {
-            throw new ForbiddenException("You may not trade with yourself");
+            throw new MtcgException("You may not trade with yourself.", HttpStatus.FORBIDDEN);
         }
         if (!type.equals(trade.getType())) {
-            throw new ForbiddenException("The card offered is not the required type.");
+            throw new MtcgException("The card offered is not the required type.", HttpStatus.FORBIDDEN);
         }
         if (offeredCard.getDamage() < trade.getDamage()) {
-            throw new ForbiddenException("The card offered is not strong enough.");
+            throw new MtcgException("The card offered is not strong enough.", HttpStatus.FORBIDDEN);
         }
         if (offeredCard.getInDeck() + cardFromTrade.getInDeck() != 0) {
-            throw new ForbiddenException("You may not trade cards which are currently in the deck.");
+            throw new MtcgException("You may not trade cards which are currently in the deck.", HttpStatus.FORBIDDEN);
         }
 
         // if (!offeredCardOwner.equals(token)
@@ -106,7 +107,7 @@ public class TradeService {
         //         || !type.equals(trade.getType())
         //         || offeredCard.getDamage() < trade.getDamage()
         //         || offeredCard.getInDeck() + cardFromTrade.getInDeck() != 0) {
-        //     throw new ForbiddenException("Trade conditions not met.");
+        //     throw new MtcgException("Trade conditions not met.", HttpStatus.FORBIDDEN);
         // }
 
         cardRepository.saveCardOwner(offeredCard.getId(), cardFromTradeOwner);
@@ -119,7 +120,7 @@ public class TradeService {
         Trade trade = doesTradeExist(tradeId);
 
         if (!cardRepository.findCardById(trade.getCardId()).getOwner().equals(token)) {
-            throw new ForbiddenException("You may not delete trades you do not own.");
+            throw new MtcgException("You may not delete trades you do not own.", HttpStatus.FORBIDDEN);
         }
 
         tradeRepository.deleteTrade(tradeId);

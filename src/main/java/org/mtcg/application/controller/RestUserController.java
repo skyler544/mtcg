@@ -7,7 +7,7 @@ import org.mtcg.application.router.Route;
 import org.mtcg.application.router.RouteIdentifier;
 import org.mtcg.application.service.UserService;
 import org.mtcg.application.util.Pair;
-import org.mtcg.http.exception.BadRequestException;
+import org.mtcg.http.exception.MtcgException;
 import org.mtcg.http.HttpStatus;
 import org.mtcg.http.RequestContext;
 import org.mtcg.http.Response;
@@ -37,7 +37,7 @@ public class RestUserController implements Controller {
 
     public Response register(Credentials credentials) {
         if (userService.findUserByUsername(credentials.getUsername()) != null) {
-            throw new BadRequestException("User with username " + credentials.getUsername() + " already exists");
+            throw new MtcgException("User with username " + credentials.getUsername() + " already exists", HttpStatus.BAD_REQUEST);
         } else {
             userService.saveCredentials(credentials);
         }

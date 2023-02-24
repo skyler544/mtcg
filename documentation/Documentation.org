@@ -53,7 +53,37 @@ creating, reading, updating, and deleting data. (CRUD)
   be read/inserted/etc.
 
 * Lessons Learned
+This project was an excellent learning experience. I now feel confident in my
+understanding of two important concepts in the world of software engineering:
+1. REpresentational State Transfer (REST)
+2. Model View Controller architecture
 
+Learning these topics has already improved my skills in a professional context.
+
+As time went on during the development of this project, I realised again and
+again that I had made mistakes or suboptimal architectural decisions in previous
+parts of the application. This should be apparent to anyone looking at the code
+in the order I wrote it: Users -> Cards -> Trading -> Battles
+
+I had to prevent myself from going back and trying to fix those issues in order
+to finish the project on time. I would like to rewrite this entire project
+(potentially in another language) someday with two goals: Cementing the lessons
+learned, and improving the architecture from the ground up.
+
+Rewriting it in another language is no comment on the effectiveness of Java;
+this application is simply, in general, large enough to make acquainting myself
+with more of the features of another useful language (like PHP) a neat sub-goal
+of rewriting it.
+
+Something that I found sorely lacking while developing this application was
+regular code reviews with more experienced colleagues. I'm certain that much of
+the code I wrote has potential to be broken in ways I never even considered, or
+that it doesn't conform to accepted Java "best practices," or that it's wildly
+inefficient, or any number of other problems. This is not an excuse for poor
+code quality, but it is food for thought.
+
+One other note: I found writing meaningful unit tests to be the most confusing
+part of the development. This is an area where I need to improve.
 * Time Spent
 Note: This information is only approximate; there were times when I worked on it
 without recording the time spent, and there were times where the clock was

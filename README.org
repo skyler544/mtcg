@@ -19,7 +19,7 @@ and accomplished using [[https://orgmode.org/][org-mode]]. Markdown and pdf vers
 are also included.
 
 * Building
-The project Makefile can be used to build and test the project. Included
+The project =Makefile= can be used to build and test the project. Included
 integration tests in the form of shell scripts may need to be set as executable
 before they can be run.
 

@@ -110,17 +110,22 @@ as I often needed to research these topics in order to understand certain
 implementation details and strategies.
 
 #+BEGIN: clocktable :scope file :maxlevel 2
-#+CAPTION: Clock summary at [2023-02-24 Fri 12:50]
+#+CAPTION: Clock summary at [2023-02-24 Fri 13:37]
 | Headline                          | Time    |          |
 |-----------------------------------+---------+----------|
-| *Total time*                        | *2d 2:01* |          |
+| *Total time*                        | *2d 3:08* |          |
 |-----------------------------------+---------+----------|
-| [[file:./mtcg.pdf][Monster Card Game]]                 | 2d 2:01 |          |
+| [[file:./mtcg.pdf][Monster Card Game]]                 | 2d 3:08 |          |
 | \_  Database [4/4]                |         |     5:59 |
 | \_  Controllers [4/4]             |         | 1d 12:29 |
 | \_  Unique Feature [1/1]          |         |     1:10 |
 | \_  Synchronization [2/2]         |         |     2:13 |
 | \_  Learn to use Unit Tests [1/1] |         |     4:10 |
+| \_  Documentation [4/4]           |         |     1:07 |
+#+END:
 
+All of this information was generated from the project progress tracking file,
+[[file:mtcg.org][mtcg.org]] The git history of that file provides a nice overview of how
+development was structured and accomplished.
 * Link to git
 [[https://github.com/skyler544/mtcg][MTCG]]

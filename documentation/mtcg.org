@@ -13,10 +13,6 @@
 
 * PROJ [[file:./mtcg.pdf][Monster Card Game]]
 DEADLINE: <2023-02-26 Sun 23:55>
-:info:
-Checklist:
-(async-shell-command "chromium https://docs.google.com/spreadsheets/d/1QpgEEVFwCxaCE-Q3iN1O-8myCMOjknp8/edit#gid=231551220")
-:end:
 ** DONE Database [4/4]
 CLOSED: [2023-02-23 Thu 21:54]
 :LOGBOOK:
@@ -142,11 +138,13 @@ CLOCK: [2023-02-11 Sat 10:09]--[2023-02-11 Sat 13:15] =>  3:06
 CLOCK: [2023-02-06 Mon 18:37]--[2023-02-06 Mon 18:56] =>  0:19
 :END:
 + [X] Find out how to use mocking
-** TODO Documentation [0/4]
+** DONE Documentation [4/4]
+CLOSED: [2023-02-24 Fri 13:37]
 :LOGBOOK:
-CLOCK: [2023-02-24 Fri 12:30]
+CLOCK: [2023-02-24 Fri 12:30]--[2023-02-24 Fri 13:37] =>  1:07
 :END:
-+ [ ] Design
-+ [ ] Lessons learned
-+ [ ] Time spent
-+ [ ] Link to git
++ [X] Design
++ [X] Lessons learned
++ [X] Time spent
++ [X] Link to git
+  

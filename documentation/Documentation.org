@@ -1,0 +1,57 @@
+#+TITLE: Project Documentation
+:FILE-OPTIONS:
+#+STARTUP: fold
+#+OPTIONS: toc:nil
+#+OPTIONS: num:2
+#+OPTIONS: \n:t
+#+LATEX_HEADER: \usepackage{helvet}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+#+LATEX_HEADER: \usepackage{nopageno}
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \usepackage[a4paper, margin=2.5cm]{geometry}
+:END:
+
+* Design
+
+* Lessons Learned
+
+* Time Spent
+Note: This information is only approximate; there were times when I worked on it
+without recording the time spent, and there were times where the clock was
+running while I took a break, etc.
+
+Furthermore, for simplicity, I didn't split up the time spent working on
+Controllers and Services, or from one Controller to another. I decided that
+constantly worrying about the running clock and which context it was in wasn't
+worth the mental effort.
+
+I categorized the Controllers, Services, Repositories, and Models into roughly
+four areas according to the OpenAPI specification:
+1. Users
+2. Cards
+3. Trading
+4. Battle
+
+I wrote them in this order, and mostly worked on the Repositories and Models
+first, then the Controllers, and finally the Services.
+
+I spent more time (on the order of maybe four hours) on the Database,
+Synchronization, and Unit Test categories than is recorded here in particular,
+as I often needed to research these topics in order to understand certain
+implementation details and strategies.
+
+#+BEGIN: clocktable :scope file :maxlevel 2
+#+CAPTION: Clock summary at [2023-02-24 Fri 12:50]
+| Headline                          | Time    |          |
+|-----------------------------------+---------+----------|
+| *Total time*                        | *2d 2:01* |          |
+|-----------------------------------+---------+----------|
+| [[file:./mtcg.pdf][Monster Card Game]]                 | 2d 2:01 |          |
+| \_  Database [4/4]                |         |     5:59 |
+| \_  Controllers [4/4]             |         | 1d 12:29 |
+| \_  Unique Feature [1/1]          |         |     1:10 |
+| \_  Synchronization [2/2]         |         |     2:13 |
+| \_  Learn to use Unit Tests [1/1] |         |     4:10 |
+
+* Link to git
+[[https://github.com/skyler544/mtcg][MTCG]]

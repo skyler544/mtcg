@@ -113,9 +113,13 @@ CLOSED: [2023-02-23 Thu 21:54]
 + [X] CardsModel
 + [X] TradingModel
 + [X] GameModel
-** TODO Unique Feature [0/1]
-+ [ ] LoreMaster 
-  - [ ] GET /loremaster --authorization mtcg-token
+** DONE Unique Feature [1/1]
+CLOSED: [2023-02-24 Fri 12:21]
+:LOGBOOK:
+CLOCK: [2023-02-24 Fri 11:11]--[2023-02-24 Fri 12:21] =>  1:10
+:END:
++ [X] LoreMaster
+  - [X] GET /loremaster --authorization mtcg-token
 ** DONE Synchronization [2/2]
 CLOSED: [2023-02-23 Thu 18:14]
 :LOGBOOK:

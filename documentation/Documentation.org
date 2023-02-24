@@ -4,6 +4,7 @@
 #+OPTIONS: toc:nil
 #+OPTIONS: num:2
 #+OPTIONS: \n:t
+#+OPTIONS: author:nil
 #+LATEX_HEADER: \usepackage{helvet}
 #+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
 #+LATEX_HEADER: \usepackage{nopageno}

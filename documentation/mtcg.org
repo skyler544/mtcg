@@ -148,3 +148,20 @@ CLOCK: [2023-02-24 Fri 12:30]--[2023-02-24 Fri 13:37] =>  1:07
 + [X] Time spent
 + [X] Link to git
   
+
+
+* Time Summary
+#+BEGIN: clocktable :scope file :maxlevel 2
+#+CAPTION: Clock summary at [2023-02-24 Fri 13:37]
+| Headline                          | Time    |          |
+|-----------------------------------+---------+----------|
+| *Total time*                        | *2d 3:08* |          |
+|-----------------------------------+---------+----------|
+| [[file:./mtcg.pdf][Monster Card Game]]                 | 2d 3:08 |          |
+| \_  Database [4/4]                |         |     5:59 |
+| \_  Controllers [4/4]             |         | 1d 12:29 |
+| \_  Unique Feature [1/1]          |         |     1:10 |
+| \_  Synchronization [2/2]         |         |     2:13 |
+| \_  Learn to use Unit Tests [1/1] |         |     4:10 |
+| \_  Documentation [4/4]           |         |     1:07 |
+#+END:

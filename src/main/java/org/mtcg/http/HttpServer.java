@@ -58,26 +58,6 @@ public class HttpServer {
                             response = new Response();
                             response.setBody(e.getMessage());
                             response.setHttpStatus(e.getStatus());
-                        // } catch (NotFoundException e) {
-                        //     response = new Response();
-                        //     response.setBody(e.getMessage());
-                        //     response.setHttpStatus(HttpStatus.NOT_FOUND);
-                        // } catch (ConflictException e) {
-                        //     response = new Response();
-                        //     response.setBody(e.getMessage());
-                        //     response.setHttpStatus(HttpStatus.CONFLICT);
-                        // } catch (ForbiddenException e) {
-                        //     response = new Response();
-                        //     response.setBody(e.getMessage());
-                        //     response.setHttpStatus(HttpStatus.FORBIDDEN);
-                        // } catch (UnauthorizedException e) {
-                        //     response = new Response();
-                        //     response.setBody(e.getMessage());
-                        //     response.setHttpStatus(HttpStatus.UNAUTHORIZED);
-                        // } catch (IllegalStateException e) {
-                        //     response = new Response();
-                        //     response.setBody(e.getMessage());
-                        //     response.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
                         } catch (NullPointerException e) {
                             response = new Response();
                             response.setBody(e.getMessage());

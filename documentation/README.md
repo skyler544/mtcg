@@ -1,19 +1,27 @@
-# Monster Trading Cards Game
 
-## Building
-The supplied Makefile provides a more convenient way of compiling and running
-the project than the `mvn` commands.
 
-  1. Running `make` will compile the project. 
-  2. Running `make run` will start the server.
-  3. Running `make uml` will generate the UML diagram. This requires the
-     `plantuml` binary to be installed and available in your `$PATH`.
-  4. Running `make view-uml` will open the diagram in your system's default
-     image viewer. On platforms other than Linux you will likely need to
-     manually open it in your system's image viewer: `[project root]/target/generated-docs/mtcg.png`
-  5. Running `make curl-script` will start the curl test script.
-  6. Running `make clean` will remove build artifacts.
-  
 
-# Clean up tables between runs
-DROP TABLE IF EXISTS users, cards, trades, battles, rounds;
+# Intro
+
+This is a RESTful trading card game written in Java. The assignment description,  
+OpenAPI specification, and general documentation for the project can be found in  
+the [documentation](documentation/) folder. All documentation and project organization was written  
+and accomplished using [org-mode](https://orgmode.org/). Markdown and pdf versions of the documentation  
+are also included.  
+
+
+# Building
+
+The project Makefile can be used to build and test the project. Included  
+integration tests in the form of shell scripts may need to be set as executable  
+before they can be run.  
+
+
+# Class Diagrams
+
+Class diagrams in the form of a PlantUML file are generated during the build  
+process. You may compile and view them with the `Makefile` as well, though this  
+requires the `plantuml` executable. On platforms other than GNU/Linux you will  
+probably need to manually open the generated class diagram image with your  
+favorite image viewer. It will be output to `target/generated-docs/mtcg.png`  
+

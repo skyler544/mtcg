@@ -234,6 +234,19 @@ public class BattleService {
                     }
                 }
 
+                // No specials, regular spell fight.
+                else {
+
+                    resultLog += "Blasts of pure magic fill the air!\n";
+
+                    if (dmgOne > dmgTwo) {
+                        winner = "one";
+                    } else {
+                        winner = "two";
+                    }
+                }
+
+
             } else {
                 // otherwise pure damage except specials
 

@@ -107,6 +107,16 @@ public class RestCardController implements Controller {
         return response;
     }
 
+    public Response consultLoremaster(RequestContext requestContext) {
+        String token = requestContext.getToken();
+        userService.authenticateToken(token);
+
+        Response response = new Response();
+        response.setHttpStatus(HttpStatus.OK);
+        response.setBody(cardService.consultLoremaster(token));
+        return response;
+    }
+
     @Override
     public List<Pair<RouteIdentifier, Route>> listRoutes() {
         List<Pair<RouteIdentifier, Route>> cardRoutes = new ArrayList<>();
@@ -134,6 +144,10 @@ public class RestCardController implements Controller {
         cardRoutes.add(new Pair<>(
                 routeIdentifier("/deck?format=plain", "GET"),
                 this::getDeckPlainText));
+
+        cardRoutes.add(new Pair<>(
+                routeIdentifier("/loremaster", "GET"),
+                this::consultLoremaster));
 
         return cardRoutes;
     }

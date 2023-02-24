@@ -101,14 +101,6 @@ public class TradeService {
             throw new ForbiddenException("You may not trade cards which are currently in the deck.");
         }
 
-        // if (!offeredCardOwner.equals(token)
-        //         || offeredCardOwner.equals(cardFromTradeOwner)
-        //         || !type.equals(trade.getType())
-        //         || offeredCard.getDamage() < trade.getDamage()
-        //         || offeredCard.getInDeck() + cardFromTrade.getInDeck() != 0) {
-        //     throw new ForbiddenException("Trade conditions not met.");
-        // }
-
         cardRepository.saveCardOwner(offeredCard.getId(), cardFromTradeOwner);
         cardRepository.saveCardOwner(cardFromTrade.getId(), offeredCardOwner);
 

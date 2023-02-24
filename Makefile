@@ -6,6 +6,9 @@ run:
 curl-script:
 	documentation/MTCG-Test.sh
 
+loremaster:
+	documentation/lore-master-test.sh
+
 compile: clean package
 	mvn compile assembly:single
 

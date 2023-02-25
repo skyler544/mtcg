@@ -336,6 +336,9 @@ public class BattleService {
 
         battleRepository.updateBattleResult(result, battleId);
 
+        lobby.remove(0);
+        lobby.remove(1);
+
         return battleId;
     }
 }
